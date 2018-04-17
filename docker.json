@@ -1,0 +1,413 @@
+{
+  "name": "Docker Logging Container",
+  "searches": [
+    {
+      "name": "Docker: Most Memory By Image",
+      "description": "Docker:  Most intensive memory by image",
+      "query": "where(stats.memory_stats.usage!=null) groupby(image) calculate(average:stats.memory_stats.usage) sort(desc)"
+    },
+    {
+      "name": "Docker: Most CPU By Image",
+      "description": "Docker:  Most intensive CPU by image",
+      "query": "where(stats.cpu_stats.cpu_usage.total_usage!=null) groupby(image) calculate(average:stats.cpu_stats.cpu_usage.total_usage) sort(desc)"
+    },
+    {
+      "name": "Docker: Most Memory By Container",
+      "description": "Docker:  Most intensive memory by container",
+      "query": "where(stats.memory_stats.usage!=null) groupby(name) calculate(average:stats.memory_stats.usage) sort(desc)"
+    },
+    {
+      "name": "Docker: Most CPU By Container",
+      "description": "Docker:  Most intensive CPU by container",
+      "query": "where(stats.cpu_stats.cpu_usage.total_usage!=null) groupby(name) calculate(average:stats.cpu_stats.cpu_usage.total_usage) sort(desc)"
+    },
+    {
+      "name": "Docker: Total memory",
+      "description": "Docker:  Total memory",
+      "query": "where(stats.memory_stats.usage!=null) calculate(average:stats.memory_stats.usage) timeSlice(50)"
+    },
+    {
+      "name": "Docker: Total CPU",
+      "description": "Docker:  Total cpu",
+      "query": "where(stats.cpu_stats.cpu_usage.total_usage!=null) calculate(average:stats.cpu_stats.cpu_usage.total_usage) timeSlice(50)"
+    },
+    {
+      "name": "Docker: Create events",
+      "description": "Docker:  Create events",
+      "query": "where(type='create') calculate(count)"
+    },
+    {
+      "name": "Docker: Start events",
+      "description": "Docker:  Start events",
+      "query": "where(type='start') calculate(count)"
+    },
+    {
+      "name": "Docker: Stop events",
+      "description": "Docker:  Stop events",
+      "query": "where(type='stop') calculate(count)"
+    },
+    {
+      "name": "Docker: Die events",
+      "description": "Docker:  Die events",
+      "query": "where(type='die') calculate(count)"
+    },
+    {
+      "name": "Docker: Attach events",
+      "description": "Docker:  Attach events",
+      "query": "where(type='attach') calculate(count) "
+    },
+    {
+      "name": "Docker: Kill events",
+      "description": "Docker:  Kill events",
+      "query": "where(type='Kill') calculate(count)"
+    },
+    {
+      "name": "Docker: Container events",
+      "description": "Docker:  Container events",
+      "query": "where(type) groupby(type) calculate(count)"
+    },
+    {
+      "name": "Docker: Traffic - rx_bytes",
+      "description": "Docker:  Traffic: rx_bytes",
+      "query": "where(stats.networks.eth0.rx_bytes!=null) calculate(average:stats.networks.eth0.rx_bytes)"
+    },
+    {
+      "name": "Docker: Traffic - rx_packets",
+      "description": "Docker:  Traffic: rx_packets",
+      "query": "where(stats.networks.eth0.rx_packets!=null) calculate(average:stats.networks.eth0.rx_packets)"
+    },
+    {
+      "name": "Docker: Traffic - rx_errors",
+      "description": "Docker:  Traffic: rx_errors",
+      "query": "where(stats.networks.eth0.rx_errors!=null) calculate(average:stats.networks.eth0.rx_errors)"
+    },
+    {
+      "name": "Docker: Traffic - rx_dropped",
+      "description": "Docker:  Traffic: rx_dropped",
+      "query": "where(stats.networks.eth0.rx_dropped!=null) calculate(average:stats.networks.eth0.rx_dropped)"
+    },
+    {
+      "name": "Docker: Traffic - tx_bytes",
+      "description": "Docker:  Traffic: rx_bytes",
+      "query": "where(stats.networks.eth0.tx_bytes!=null) calculate(average:stats.networks.eth0.tx_bytes)"
+    },
+    {
+      "name": "Docker: Traffic - tx_packets",
+      "description": "Docker:  Traffic: tx_packets",
+      "query": "where(stats.networks.eth0.tx_packets!=null) calculate(average:stats.networks.eth0.tx_packets)"
+    },
+    {
+      "name": "Docker: Traffic - tx_errors",
+      "description": "Docker:  Traffic: tx_errors",
+      "query": "where(stats.networks.eth0.tx_errors!=null) calculate(average:stats.networks.eth0.tx_errors)"
+    },
+    {
+      "name": "Docker: Traffic - tx_dropped",
+      "description": "Docker:  Traffic: tx_dropped",
+      "query": "where(stats.networks.eth0.tx_dropped!=null) calculate(average:stats.networks.eth0.tx_dropped)"
+    }
+  ],
+  "tags": [
+    {
+      "type": "Alert",
+      "name": "Container created",
+      "description": "Docker container created",
+      "labels": [
+        {
+          "name": "Container created",
+          "color": "3498DB"
+        }
+      ],
+      "patterns": [
+        "\"type\":\"create\""
+      ],
+      "actions": [ {
+        "type": "Alert",
+        "min_matches_count": 100,
+        "min_matches_period": "Day",
+        "min_report_count": 1,
+        "min_report_period": "Day"
+      }]
+    },
+    {
+      "type": "Alert",
+      "name": "Container Started",
+      "description": "Docker container started",
+      "labels": [
+        {
+          "name": "Container started",
+          "color": "2ECC71"
+        }
+      ],
+      "patterns": [
+        "\"type\":\"start\""
+      ],
+      "actions": [ {
+        "type": "Alert",
+        "min_matches_count": 100,
+        "min_matches_period": "Day",
+        "min_report_count": 1,
+        "min_report_period": "Day"
+      }]
+    },
+    {
+      "type": "Alert",
+      "name": "Container Died",
+      "description": "Docker container died",
+      "labels": [
+        {
+          "name": "Container died",
+          "color": "FF0000"
+        }
+      ],
+      "patterns": [
+        "\"type\":\"die\""
+      ],
+      "actions": [ {
+        "type": "Alert",
+        "min_matches_count": 100,
+        "min_matches_period": "Day",
+        "min_report_count": 1,
+        "min_report_period": "Day"
+      }]
+    },
+    {
+      "type": "Alert",
+      "name": "Container Killed",
+      "description": "Docker container killed",
+      "labels": [
+        {
+          "name": "Container killed",
+          "color": "FF7202"
+        }
+      ],
+      "patterns": [
+        "\"type\":\"kill\""
+      ],
+      "actions": [ {
+        "type": "Alert",
+        "min_matches_count": 100,
+        "min_matches_period": "Day",
+        "min_report_count": 1,
+        "min_report_period": "Day"
+      }]
+    },
+    {
+      "type": "Alert",
+      "name": "CPU_max",
+      "description": "CPU MAX",
+      "labels": [
+        {
+          "name": "CPU max usage",
+          "color": "FF003F"
+        }
+      ],
+      "patterns": [
+        "stats.cpu_stats.cpu_usage.cpu_percent>99"
+      ],
+      "actions": [ {
+        "type": "Alert",
+        "min_matches_count": 100,
+        "min_matches_period": "Day",
+        "min_report_count": 1,
+        "min_report_period": "Day"
+      }]
+    },
+    {
+      "type": "Alert",
+      "name": "Over 1GB memory usage",
+      "description": "Container is using between 1Gb-2Gb of memory",
+      "labels": [
+        {
+          "name": "1Gb+ Mem Usage",
+          "color": "00FF9F"
+        }
+      ],
+      "patterns": [
+        "stats.memory_stats.usage>1073741824 AND stats.memory_stats.usage<2147483648"
+      ],
+      "actions": [ {
+        "type": "Alert",
+        "min_matches_count": 1,
+        "min_matches_period": "Day",
+        "min_report_count": 1,
+        "min_report_period": "Day"
+      }]
+    },
+    {
+      "type": "Alert",
+      "name": "Over 2GB memory usage",
+      "description": "Container is using between 2Gb-3Gb of memory",
+      "labels": [
+        {
+          "name": "2Gb+ Mem Usage",
+          "color": "0002FF"
+        }
+      ],
+      "patterns": [
+        "stats.memory_stats.usage>2147483648 AND stats.memory_stats.usage<3221225472"
+      ],
+      "actions": [ {
+        "type": "Alert",
+        "min_matches_count": 1,
+        "min_matches_period": "Day",
+        "min_report_count": 1,
+        "min_report_period": "Day"
+      }]
+    },
+    {
+      "type": "Alert",
+      "name": "Over 3GB memory usage",
+      "description": "Container is using between 3Gb-4Gb of memory",
+      "labels": [
+        {
+          "name": "3Gb+ Mem Usage",
+          "color": "FF00DB"
+        }
+      ],
+      "patterns": [
+        "stats.memory_stats.usage>3221225472 AND stats.memory_stats.usage<4294967296"
+      ],
+      "actions": [ {
+        "type": "Alert",
+        "min_matches_count": 1,
+        "min_matches_period": "Day",
+        "min_report_count": 1,
+        "min_report_period": "Day"
+      }]
+    },
+    {
+      "type": "Alert",
+      "name": "Over 4GB memory usage",
+      "description": "Container is using between 4Gb of memory",
+      "labels": [
+        {
+          "name": "4Gb+ Mem Usage",
+          "color": "FF6200"
+        }
+      ],
+      "patterns": [
+        "stats.memory_stats.usage>4294967296"
+      ],
+      "actions": [ {
+        "type": "Alert",
+        "min_matches_count": 1,
+        "min_matches_period": "Day",
+        "min_report_count": 1,
+        "min_report_period": "Day"
+      }]
+    }
+  ],
+  "cards": [
+    {
+      "name": "Docker: Create events",
+      "description": "Docker: Create events",
+      "queries": [{ "leql" : {
+              "statement": "where(type='create') calculate(count)"
+            }}],
+      "visualization": "COUNT"
+    },
+    {
+      "name": "Docker: Start events",
+      "description": "Docker: Start events",
+      "queries": [{ "leql" : {
+              "statement": "where(type='start') calculate(count)"
+            }}],
+      "visualization": "COUNT"
+    },
+    {
+      "name": "Docker: Stop events",
+      "description": "Docker: Stop events",
+      "queries": [{ "leql" : {
+              "statement": "where(type='stop') calculate(count)"
+            }}],
+      "visualization": "COUNT"
+    },
+    {
+      "name": "Docker: Die events",
+      "description": "Docker: Die events",
+      "queries": [{ "leql" : {
+              "statement": "where(type='die') calculate(count)"
+            }}],
+      "visualization": "COUNT"
+    },
+    {
+      "name": "Most intensive memory by image",
+      "description": "Most intensive memory by image",
+      "queries": [{ "leql" : {
+              "statement": "where(stats.memory_stats.usage!=null) groupby(image) calculate(average:stats.memory_stats.usage) sort(desc)"
+            }}],
+      "visualization": "BAR"
+    },
+    {
+      "name": "Most intensive CPU by image",
+      "description": "Most intensive CPU by image",
+      "queries": [{ "leql" : {
+              "statement": "where(stats.cpu_stats.cpu_usage.total_usage!=null) groupby(image) calculate(average:stats.cpu_stats.cpu_usage.total_usage) sort(desc)"
+            }}],
+      "visualization": "BAR"
+    },
+    {
+      "name": "Most intensive memory by container",
+      "description": "Most intensive memory by container",
+      "queries": [{ "leql" : {
+              "statement": "where(stats.memory_stats.usage!=null) groupby(name) calculate(average:stats.memory_stats.usage) sort(desc)"
+            }}],
+      "visualization": "BAR"
+    },
+    {
+      "name": "Most intensive CPU by container",
+      "description": "Most intensive CPU by container",
+      "queries": [{ "leql" : {
+              "statement": "where(stats.cpu_stats.cpu_usage.total_usage!=null) groupby(name) calculate(average:stats.cpu_stats.cpu_usage.total_usage) sort(desc)"
+            }}],
+      "visualization": "BAR"
+    },
+    {
+      "name": "Total memory",
+      "description": "Total average memory",
+      "queries": [{ "leql" : {
+              "statement": "where(stats.memory_stats.usage!=null) calculate(average:stats.memory_stats.usage) timeSlice(50)"
+            }}],
+      "visualization": "BAR"
+    },
+    {
+      "name": "Total CPU",
+      "description": "Total average CPU",
+      "queries": [{ "leql" : {
+              "statement": "where(stats.cpu_stats.cpu_usage.total_usage!=null) calculate(average:stats.cpu_stats.cpu_usage.total_usage) timeSlice(50)"
+            }}],
+      "visualization": "BAR"
+    },
+    {
+      "name": "Container events by type",
+      "description": "Container events by type",
+      "queries": [{ "leql" : {
+              "statement": "where(type) groupby(type) calculate(count)"
+            }}],
+      "visualization": "PIE"
+    },
+        {
+      "name": "Traffic received",
+      "description": "Traffic received",
+      "queries": [
+        {"leql" : {"statement": "where(stats.networks.eth0.rx_bytes!=null) calculate(average:stats.networks.eth0.rx_bytes)"}},
+        {"leql" : {"statement": "where(stats.networks.eth0.rx_packets!=null) calculate(average:stats.networks.eth0.rx_packets)"}},
+        {"leql" : {"statement": "where(stats.networks.eth0.rx_errors!=null) calculate(average:stats.networks.eth0.rx_errors)"}},
+        {"leql" : {"statement": "where(stats.networks.eth0.rx_dropped!=null) calculate(average:stats.networks.eth0.rx_dropped)"}}
+      ],
+      "visualization": "MULTILINE"
+    },
+    {
+      "name": "Traffic transferred",
+      "description": "Traffic transferred",
+      "queries": [
+        {"leql" : {"statement": "where(stats.networks.eth0.rx_bytes!=null) calculate(average:stats.networks.eth0.rx_bytes)"}},
+        {"leql" : {"statement": "where(stats.networks.eth0.rx_packets!=null) calculate(average:stats.networks.eth0.rx_packets)"}},
+        {"leql" : {"statement": "where(stats.networks.eth0.rx_errors!=null) calculate(average:stats.networks.eth0.rx_errors)"}},
+        {"leql" : {"statement": "where(stats.networks.eth0.rx_dropped!=null) calculate(average:stats.networks.eth0.rx_dropped)"}}
+      ],
+      "visualization": "MULTILINE"
+    }
+  ]
+}

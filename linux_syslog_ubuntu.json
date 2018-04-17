@@ -1,0 +1,268 @@
+{
+    "name": "Ubuntu syslog",   
+    "searches": [
+        {
+            "name": "CommandExecution",
+            "description": "Commands executed over time",
+            "query": "where(Executing command) calculate(COUNT)"
+        },
+        {
+            "name": "UserDistribution",
+            "description": "Distribution of the system users",
+            "query": "where(/session opened for user (?P<user>.*) by/) groupby(user) calculate(COUNT)"
+        },
+         {
+            "name": "AuthFailure",
+            "description": "Authentication Failure",
+            "query": "where(authentication failure) calculate(COUNT)"
+        },
+        {
+            "name": "Processes",
+            "description": "Total of unique processes",
+            "query": "where(pid) calculate(UNIQUE:pid)"
+        },
+        {
+            "name": "ProcessDistribution",
+            "description": "Distribution of unique process IDs",
+            "query": "where(pid) groupby(pid) calculate(COUNT)"
+        }
+    ],
+    "tags": [
+        {
+            "type": "Alert",
+            "name": "Session Opened",
+            "description": "Session Opened",
+            "labels": [
+                {
+                    "name": "Session Opened",
+                    "color": "00FF21"
+                }
+            ],
+            "patterns": [
+                "session opened" 
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_matches_period": "Day",
+                "min_report_count": 1,
+                "min_report_period": "Day"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Session Closed",
+            "description": "Session Closed",
+            "labels": [
+                {
+                    "name": "Session Closed",
+                    "color": "0076FB"
+                }
+            ],
+            "patterns": [
+                "session closed" 
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_matches_period": "Day",
+                "min_report_count": 1,
+                "min_report_period": "Day"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Change of a user",
+            "description": "The user has changed",
+            "labels": [
+                {
+                    "name": "User Changed",
+                    "color": "F061FB"
+                }
+            ],
+            "patterns": [
+                "session closed" 
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_matches_period": "Day",
+                "min_report_count": 1,
+                "min_report_period": "Day"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Authentication Failure",
+            "description": "Authentication Failure - possible brute force",
+            "labels": [
+                {
+                    "name": "Auth Failure",
+                    "color": "FB0000"
+                }
+            ],
+            "patterns": [
+                "authentication failure" 
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 5,
+                "min_matches_period": "Day",
+                "min_report_count": 5,
+                "min_report_period": "Day"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Power Button Pressed",
+            "description": "Power Button Pressed",
+            "labels": [
+                {
+                    "name": "Power Button",
+                    "color": "007AFB"
+                }
+            ],
+            "patterns": [
+                "Power Button as" 
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_matches_period": "Day",
+                "min_report_count": 1,
+                "min_report_period": "Day"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Sleep Button Pressed",
+            "description": "Sleep Button Pressed",
+            "labels": [
+                {
+                    "name": "Sleep Button",
+                    "color": "238AAA"
+                }
+            ],
+            "patterns": [
+                "Sleep Button as" 
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_matches_period": "Day",
+                "min_report_count": 1,
+                "min_report_period": "Day"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Watchdog Thread",
+            "description": "Watchdog Thread",
+            "labels": [
+                {
+                    "name": "Watchdog",
+                    "color": "4200FC"
+                }
+            ],
+            "patterns": [
+                "Watchdog thread" 
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_matches_period": "Day",
+                "min_report_count": 1,
+                "min_report_period": "Day"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Canary Thread",
+            "description": "Canary Thread",
+            "labels": [
+                {
+                    "name": "Canary",
+                    "color": "FC5700"
+                }
+            ],
+            "patterns": [
+                "Canary thread" 
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_matches_period": "Day",
+                "min_report_count": 1,
+                "min_report_period": "Day"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Network Error",
+            "description": "Network Manager Error",
+            "labels": [
+                {
+                    "name": "Network Error",
+                    "color": "FC0020"
+                }
+            ],
+            "patterns": [
+                "NetworkManager AND /error" 
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_matches_period": "Day",
+                "min_report_count": 1,
+                "min_report_period": "Day"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Network Info",
+            "description": "Network Manager Info",
+            "labels": [
+                {
+                    "name": "Network Info",
+                    "color": "81FC00"
+                }
+            ],
+            "patterns": [
+                "NetworkManager AND /info" 
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_matches_period": "Day",
+                "min_report_count": 1,
+                "min_report_period": "Day"
+            }]
+        }
+    ],
+    "cards": [
+        {
+            "name": "User Distribution",
+            "description": "User Distribution",
+            "queries": [{ "leql" : { "statement": "where(/session opened for user (?P<user>.*) by/) groupby(user) calculate(COUNT)"}}],
+            "visualization": "BAR"
+        },
+        {
+            "name": "Authentication Failure",
+            "description": "Authentication Failure",
+            "queries": [{ "leql" : { "statement": "where(authentication failure) calculate(COUNT)"}}],
+            "visualization": "AREA"
+        },
+        {
+            "name": "Processes Running",
+            "description": "Total of unique processes",
+            "queries": [{ "leql" : { "statement": "where(pid) calculate(UNIQUE:pid)"}}],
+            "visualization": "COUNT"
+        },
+        {
+            "name": "Distribution of user processes",
+            "description": "Distribution of user processes",
+            "queries": [{ "leql" : { "statement": "where(pid) groupby(pid) calculate(COUNT)"}}],
+            "visualization": "BAR"
+        }
+    ]
+}

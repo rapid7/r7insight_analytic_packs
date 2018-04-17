@@ -1,0 +1,64 @@
+{
+	"name" : "Puppet Database",
+        "searches": [
+        {
+            "name": "DatabaseErrors",
+            "description": "Puppet Database Errors",
+            "query": "where(Could not retrieve catalog OR OutOfMemoryError) calculate(count)"
+        }
+
+        ],
+
+    "tags": [
+        {
+            "type": "Alert",
+            "name": "SSL Error",
+            "description": "SSL Error",
+            "labels": [
+                {
+                    "name": "SSL Error",
+                    "color": "F179FF"
+                }
+            ],
+            "patterns": [
+                "Could not retrieve catalog"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 20,
+                "min_matches_period": "Hour",
+                "min_report_count": 1,
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Out of memory",
+            "description": "Out of memory",
+            "labels": [
+                {
+                    "name": "Out of memory",
+                    "color": "00B1FF"
+                }
+            ],
+            "patterns": [
+                "OutOfMemoryError"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 20,
+                "min_matches_period": "Hour",
+                "min_report_count": 1,
+                "min_report_period": "Hour"
+            }]
+        }
+    ],
+    "cards": [
+        {
+            "name": "Database Errors ",
+            "description": "Puppet Database Errors",
+            "queries": [{ "leql" : {"statement": "where(Could not retrieve catalog OR OutOfMemoryError) calculate(count)"}}],
+            "visualization": "COUNT"
+        }
+    ]
+}

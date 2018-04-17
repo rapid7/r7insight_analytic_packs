@@ -1,0 +1,165 @@
+{
+	"name" : "Linux Server Monitoring",
+    "searches": [
+        {
+            "name": "Total System CPU Average",
+            "description": "Total System CPU Average Over Time",
+            "query": "where(system>0) calculate(AVERAGE:system)"
+        },
+        {
+            "name": "Total User CPU Average",
+            "description": "Total User CPU Average over Time",
+            "query": "where(user>0) calculate(AVERAGE:user)"
+        },
+        {
+            "name": "Total Available Memory",
+            "description": "Total Available Memory Over Time",
+            "query": "where(total>0) calculate(AVERAGE:total)"
+        },
+        {
+            "name": "Memory Free",
+            "description": "Memory Free over Time",
+            "query": "where(free>0) calculate(AVERAGE:free)"
+        },
+        {
+            "name": "Memory Active",
+            "description": "Memory Active over Time",
+            "query": "where(active>0) calculate(AVERAGE:active)"
+        },
+        {
+            "name": "Memory Cached",
+            "description": "Memory Cached over Time",
+            "query": "where(cached>0) calculate(AVERAGE:cached)"
+        },
+        {
+            "name": "Disk Reads Per Second",
+            "description": "Disk Reads in Bytes Per Second",
+            "query": "where(reads>0) calculate(AVERAGE:reads)"
+        },
+        {
+            "name": "Disk Writes Per Second",
+            "description": "Disk Writes in Bytes Per Second",
+            "query": "where(writes>0) calculate(AVERAGE:writes)"
+        },
+        {
+            "name": "Disk Size",
+            "description": "Disk Size in Bytes",
+            "query": "where(size>0) calculate(AVERAGE:size)"
+        },
+        {
+            "name": "Used Disk",
+            "description": "Disk Used in Bytes",
+            "query": "where(used>0) calculate(AVERAGE:used)"
+        },
+        {
+            "name": "Free Disk",
+            "description": "Disk Free in Bytes",
+            "query": "where(free>0) calculate(AVERAGE:free)"
+        },
+        {
+            "name": "Logins",
+            "description": "Number of SSHD Sessions Opened",
+            "query": "where(session opened for user) calculate(COUNT)"
+        },
+        {
+            "name": "Failed Logins",
+            "description": "Number of invalid user sshd attempts",
+            "query": "where(invalid user) calculate(COUNT)"
+        }
+    ],
+    "tags": [
+        {
+            "type": "Alert",
+            "name": "Failed Login",
+            "description": "invalid user sshd attempts",
+            "labels": [
+                {
+                    "name": "Failed Login",
+                    "color": "123456"
+                }
+            ],
+            "patterns": [
+                "invalid user"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 20,
+                "min_matches_period": "Hour",
+                "min_report_count": 1,
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "CPU>90% Per Hour",
+            "description": "CPU Spikes above 90% more that 20 times in an Hour",
+            "labels": [
+                {
+                    "name": "High CPU",
+                    "color": "123456"
+                }
+            ],
+            "patterns": [
+                "system>90",
+                "user>90"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 20,
+                "min_matches_period": "Hour",
+                "min_report_count": 1,
+                "min_report_period": "Hour"
+            }]
+        }
+    ],
+    "cards": [
+        {
+            "name": "CPU Usage",
+            "description": "System and User CPU",
+            "queries": [
+                { "leql" : {"statement": "where(system>0) calculate(AVERAGE:system)"}},
+                { "leql" : {"statement": "where(user>0) calculate(AVERAGE:user)"}}
+            ],
+            "visualization": "MULTILINE"
+        },
+        {
+            "name": "Memory Usage",
+            "description": "Total, Used and Cached Memory",
+            "queries": [
+                { "leql" : {"statement": "where(total>0) calculate(AVERAGE:total)"}},
+                { "leql" : {"statement": "where(free>0) calculate(AVERAGE:free)"}},
+                { "leql" : {"statement": "where(active>0) calculate(AVERAGE:active)"}},
+                { "leql" : {"statement": "where(cached>0) calculate(AVERAGE:cached)"}}
+            ],
+            "visualization": "MULTILINE"
+        },
+        {
+            "name": "Disk Activity",
+            "description": "Disk Read and Write in Bytes",
+            "queries": [
+                { "leql" : {"statement": "where(reads>0) calculate(AVERAGE:reads)"}},
+                { "leql" : {"statement": "where(writes>0) calculate(AVERAGE:writes)"}}
+            ],
+            "visualization": "MULTILINE"
+        },
+        {
+            "name": "Disk Usage",
+            "description": "Total and Free Disk",
+            "queries": [
+                { "leql" : {"statement": "where(used>0) calculate(AVERAGE:used)"}},
+                { "leql" : {"statement": "where(free>0) calculate(AVERAGE:free)"}}
+            ],
+            "visualization": "MULTILINE"
+        },
+        {
+            "name": "SSH Access",
+            "queries": [{ "leql" : {"statement": "where(session opened for user) calculate(COUNT)"}}],
+            "visualization": "COUNT"
+        },
+        {
+            "name": "Failed Logins",
+            "queries": [{ "leql" : {"statement": "where(invalid user) calculate(COUNT)"}}],
+            "visualization": "COUNT"
+        }
+    ]
+}

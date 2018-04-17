@@ -1,0 +1,99 @@
+{
+	"name" : "Salesforce",
+    "tags": [
+        {
+            "type": "Alert",
+            "name": "SF Login Event",
+            "description": "SalesForce login event",
+            "labels": [
+                {
+                    "name": "SF Login Event",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "LOGIN_EVENT"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "SF LogOut Event",
+            "description": "SalesForce logout event",
+            "labels": [
+                {
+                    "name": "SF LogOut Event",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "LOGOUT_EVENT"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "SF LoginAs Event",
+            "description": "SalesForce login as event",
+            "labels": [
+                {
+                    "name": "SF LoginAs",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "LOGIN_AS_EVENT"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        }
+    ],
+    "searches": [
+        {
+            "name": "logins",
+            "query": "where(LOGIN_EVENT) calculate(COUNT)"
+        },
+        {
+            "name": "logouts",
+            "query": "where(LOGOUT_EVENT) calculate(COUNT)"
+        },
+        {
+            "name": "login_as",
+            "query": "where(LOGIN_AS_EVENT) calculate(COUNT)"
+        }
+    ],
+    "cards": [
+        {
+            "name": "Number of Logins",
+            "queries": [{ "leql" : {"statement": "where(LOGIN_EVENT) calculate(COUNT)"}}],
+            "visualization": "COUNT"
+        },
+        {
+            "name": "Number of Failed Logins",
+            "queries": [{ "leql" : {"statement": "where(LOGOUT_EVENT) calculate(COUNT)"}}],
+            "visualization": "COUNT"
+        },
+        {
+            "name": "Number of LoginAs Events",
+            "queries": [{ "leql" : {"statement": "where(LOGIN_AS_EVENT) calculate(COUNT)"}}],
+            "visualization": "COUNT"
+        }
+    ]
+}

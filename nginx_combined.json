@@ -1,0 +1,152 @@
+{
+	"name": "NGINX powered by RE2",
+    "searches": [
+        {
+            "name": "HTTPcodes",
+            "description": "HTTP Codes Distribution",
+            "query": "groupby(http.status) calculate(COUNT:http.status)"
+        },
+         {
+            "name": "URLDistribution",
+            "description": "Individual URLs accessed",
+            "query": "groupby(http.path) calculate(COUNT:http.path)"
+        },
+        {
+            "name": "TotalBytes",
+            "description": "Total bytes requested in average",
+            "query": "calculate(AVERAGE:http.bytes)"
+        },
+        {
+            "name": "Totalphp",
+            "description": "Total number of .php request",
+            "query": "where(/\"GET .{1,}\\.php/) calculate(COUNT)"
+        },
+        {
+            "name": "Totaljpg",
+            "description": "Total number of .jpg request",
+            "query": "where(/\"GET .{1,}\\.jpg/) calculate(COUNT)"
+        },        
+        {
+            "name": "Referer",
+            "description": "Referer Distribution",
+            "query": "where(http.status) groupby(http.referer) calculate(COUNT:http.referer)"
+        },
+         {
+            "name": "UserAgent",
+            "description": "User Agent Distribution",
+            "query": "groupby(http.agent) calculate(COUNT:http.agent)"
+        }
+          
+    ],
+    "tags": [
+    {
+            "type": "Alert",
+            "name": "404 - Not Found",
+            "description": "404 Error",
+            "labels": [
+                {
+                    "name": "404 - Not Found",
+                    "color": "FF0000"
+                }
+            ],
+            "patterns": [
+                "http.status=404"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 5,
+                "min_matches_period": "Day",
+                "min_report_count": 1,
+                "min_report_period": "Day"
+            }]
+    },
+    {
+        
+            "type": "Alert",
+            "name": "OK Pass",
+            "description": "Correct Pass",
+            "labels": [
+                {
+                    "name": "200-OK",
+                    "color": "33CC33"
+                }
+            ],
+            "patterns": [
+                "http.status=200"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 0,
+                "min_matches_period": "Day",
+                "min_report_count": 0,
+                "min_report_period": "Day"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "401 - unauthorized",
+            "description": "401 unauthorized",
+            "labels": [
+                {
+                    "name": "401 - unauthorized",
+                    "color": "FF0000"
+                }
+            ],
+            "patterns": [
+                "http.status=401"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 5,
+                "min_matches_period": "Day",
+                "min_report_count": 1,
+                "min_report_period": "Day"
+            }]
+        }
+       
+    ],
+    "cards": [
+        {
+            "name": "HTTP Codes",
+            "description": "HTTP Codes Distribution",
+            "queries": [{ "leql" : {"statement": "groupby(http.status) calculate(COUNT:http.status)"}}],
+            "visualization": "BAR"
+        },
+        {
+            "name": "URLs Distribution",
+            "description": "Individual URLs accessed",
+            "queries": [{ "leql" : {"statement": "groupby(http.path) calculate(COUNT:http.path)"}}],
+            "visualization": "BAR"
+        },
+        {
+            "name": "Total Bytes Requested",
+            "description": "Total bytes requested in average",
+            "queries": [{ "leql" : {"statement": "calculate(AVERAGE:http.bytes)"}}],
+            "visualization": "LINE"
+        },
+        {
+            "name": "Total number of .php request",
+            "description": "Number of request for php pages",
+            "queries": [{ "leql" : {"statement": "where(/\"GET .{1,}\\.php/i) calculate(COUNT)"}}],
+            "visualization": "COUNT"
+        },
+        {
+            "name": "Total number of .jpg request",
+            "description": "Number of request for jpg pages",
+            "queries": [{ "leql" : {"statement": "where(/\"GET .{1,}\\.jpg/i) calculate(COUNT)"}}],
+            "visualization": "COUNT"
+        },
+        {
+            "name": "Distribution of referers",
+            "description": "Distribution of referers",
+            "queries": [{ "leql" : {"statement": "where(http.status) groupby(http.referer) calculate(COUNT:http.referer)"}}],
+            "visualization": "BAR"
+        },
+        {
+            "name": "User-Agent Distribution",
+            "description": "User-Agent Distribution",
+            "queries": [{ "leql" : {"statement": "groupby(http.agent) calculate(COUNT:http.agent)"}}],
+            "visualization": "BAR"
+        }
+    ]
+}

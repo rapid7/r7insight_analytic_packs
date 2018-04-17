@@ -1,0 +1,85 @@
+{
+	"name" : "Heroku Runtime Metrics",
+    "searches": [
+        {
+            "name": "memory_total",
+            "query": "where(memory_total>0) calculate(average:memory_total)"
+        },
+        {
+            "name": "memory_rss",
+            "query": "where(memory_rss>0) calculate(average:memory_rss)"
+        },
+        {
+            "name": "memory_cache",
+            "query": "where(memory_cache>0) calculate(average:memory_cache)"
+        },
+        {
+            "name": "memory_swap",
+            "query": "where(memory_swap>0) calculate(average:memory_swap)"
+        },
+        {
+            "name": "memory_pgpgin",
+            "query": "where(memory_pgpgin>0) calculate(average:memory_pgpgin)"
+        },
+        {
+            "name": "memory_pgpgout",
+            "query": "where(memory_pgpgout>0) calculate(average:memory_pgpgout)"
+        },
+        {
+            "name": "load_avg_1m",
+            "query": "where(load_avg_1m>0) calculate(average:load_avg_1m)"
+        },
+        {
+            "name": "load_avg_5m",
+            "query": "where(load_avg_5m>0) calculate(average:load_avg_5m)"
+        },
+        {
+            "name": "load_avg_15m",
+            "query": "where(load_avg_15m>0) calculate(average:load_avg_15m)"
+        },
+        {
+            "name": "load_avg_1m_per_dyno",
+            "query": "where(load_avg_1m>0) groupby(dyno) calculate(average:memory_total)"
+        },
+        {
+            "name": "memory_total_per_dyno",
+            "query": "where(memory_total>0) groupby(dyno) calculate(average:memory_total)"
+        }
+    ],
+    "cards": [
+        {
+            "name": "Memory Usage",
+            "description": "Breakdown of Memory Usage",
+            "queries": [
+                { "leql" : {"statement": "where(memory_total>0) calculate(average:memory_total)"}},
+                { "leql" : {"statement": "where(memory_cache>0) calculate(average:memory_cache)"}},
+                { "leql" : {"statement": "where(memory_swap>0) calculate(average:memory_swap)"}},
+                { "leql" : {"statement": "where(memory_pgpgin>0) calculate(average:memory_pgpgin)"}},
+                { "leql" : {"statement": "where(memory_pgpgout>0) calculate(average:memory_pgpgout)"}}
+            ],
+            "visualization": "MULTILINE"
+        },
+        {
+            "name": "CPU Load Average",
+            "description": "1m 5m and 15m",
+            "queries": [
+                { "leql" : {"statement": "where(load_avg_1m>0) calculate(average:load_avg_1m)"}},
+                { "leql" : {"statement": "where(load_avg_5m>0) calculate(average:load_avg_5m)"}},
+                { "leql" : {"statement": "where(load_avg_5m>0) calculate(average:load_avg_15m)"}}
+            ],
+            "visualization": "MULTILINE"
+        },
+        {
+            "name": "Load AVG by Dyno",
+            "description": "load_avg_1m Per Dyno",
+            "queries": [{ "leql" : {"statement": "where(load_avg_1m>0) groupby(dyno) calculate(average:memory_total)"}}],
+            "visualization": "BAR"
+        },
+        {
+            "name": "Total Memory by Dyno",
+            "description": "Total Mem Per Dyno",
+            "queries": [{ "leql" : {"statement": "where(memory_total>0) groupby(dyno) calculate(average:memory_total)"}}],
+            "visualization": "BAR"
+        }
+    ]
+}

@@ -1,0 +1,552 @@
+{
+	"name" : "Windows Security",
+	"searches" : [],
+	"cards" : [],	
+    "tags": [
+        {
+            "type": "Alert",
+            "name": "Failed Login",
+            "description": "Failed login",
+            "labels": [
+                {
+                    "name": "Failed Login",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "invalid user"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Win Account Changed",
+            "description": "Win Account Changed",
+            "labels": [
+                {
+                    "name": "Win Account Changed",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "/642 EVENT/",
+                "/4738 EVENT/"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Win Account Failed",
+            "description": "Win Account Failed",
+            "labels": [
+                {
+                    "name": "Win Account Failed",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "/675 EVENT/",
+                "/681 EVENT/",
+                "/4771 EVENT/"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Win Account Locked Out",
+            "description": "Win Account Locked Out",
+            "labels": [
+                {
+                    "name": "Win Acc Locked",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "/644 EVENT/",
+                "/4740 EVENT/"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Win Account PWD Set",
+            "description": "Win Account PWD Set",
+            "labels": [
+                {
+                    "name": "Win Acc PWD Set",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "/628 EVENT/",
+                "/4724 EVENT/"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Win Account Success",
+            "description": "Win Account Success",
+            "labels": [
+                {
+                    "name": "Win Acc Success",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "/672 EVENT/",
+                "/680 EVENT/",
+                "/4772 EVENT/",
+                "/4768 EVENT/"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Win Audit Log Cleared",
+            "description": "Win Audit Log Cleared",
+            "labels": [
+                {
+                    "name": "Win Audit Log Cleared",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "/517 EVENT/",
+                "/1102 EVENT/"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Win Audit Policy Change",
+            "description": "Win Audit Policy Change",
+            "labels": [
+                {
+                    "name": "Win Audit Policy Change",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "/612 EVENT/",
+                "/4719 EVENT/"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Win Change PWD",
+            "description": "Win Change PWD",
+            "labels": [
+                {
+                    "name": "Win Change PWD",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "/627 EVENT/",
+                "/4723 EVENT/"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Win Computer Account Created",
+            "description": "Win Change PWD",
+            "labels": [
+                {
+                    "name": "Win Acc Created",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "/645 EVENT/",
+                "/4741 EVENT/"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Win Computer Account Deleted",
+            "description": "Win Computer Account Deleted",
+            "labels": [
+                {
+                    "name": "Win Acc Deleted",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "/647 EVENT/",
+                "/4743 EVENT/"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Win Domain Policy Change",
+            "description": "Win Domain Policy Change",
+            "labels": [
+                {
+                    "name": "Win Domain Policy Change",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "/643 EVENT/",
+                "/4739 EVENT/"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Win Logoff",
+            "description": "Win Logoff",
+            "labels": [
+                {
+                    "name": "Win Logoff",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "/538 EVENT/",
+                "/4634 EVENT/"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Win Logon",
+            "description": "Win Logon",
+            "labels": [
+                {
+                    "name": "Win Logon",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "/528 EVENT/",
+                "/4624 EVENT/",
+                "/540 EVENT/"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Win Logon Failure",
+            "description": "Win Logon Failure",
+            "labels": [
+                {
+                    "name": "Win Logon Failure",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "/529 EVENT/",
+                "/531 EVENT/",
+                "/532 EVENT/",
+                "/533 EVENT/",
+                "/534 EVENT/",
+                "/535 EVENT/",
+                "/536 EVENT/",
+                "/537 EVENT/",
+                "/539 EVENT/",
+                "/4625 EVENT/"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Win Object Access",
+            "description": "Win Object Access",
+            "labels": [
+                {
+                    "name": "Win Object Access",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "/560 EVENT/",
+                "/563 EVENT/",
+                "/565 EVENT/",
+                "/566 EVENT/",
+                "/4656 EVENT/",
+                "/4659 EVENT/",
+                "/4661 EVENT/",
+                "/4662 EVENT/"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Win Session Disconnected",
+            "description": "Win Session Disconnected",
+            "labels": [
+                {
+                    "name": "Win Session Disconnected",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "/683 EVENT/",
+                "/4779 EVENT/"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Win Session Reconnected",
+            "description": "Win Session Reconnected",
+            "labels": [
+                {
+                    "name": "Win Session Reconnected",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "/682 EVENT/",
+                "/4778 EVENT/"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Win Shutdown",
+            "description": "Win Shutdown",
+            "labels": [
+                {
+                    "name": "Win Shutdown",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "/513 EVENT/",
+                "/4608 EVENT/"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Win Startup",
+            "description": "Win Startup",
+            "labels": [
+                {
+                    "name": "Win Startup",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "/512 EVENT/",
+                "/4608 EVENT/"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Win User Created",
+            "description": "Win User Created",
+            "labels": [
+                {
+                    "name": "Win User Created",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "/624  EVENT/",
+                "/4720 EVENT/"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Win User Deleted",
+            "description": "Win User Deleted",
+            "labels": [
+                {
+                    "name": "Win User Deleted",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "/630 EVENT/",
+                "/4726 EVENT/"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Win User Disabled",
+            "description": "Win User Disabled",
+            "labels": [
+                {
+                    "name": "Win User Disabled",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "/629 EVENT/",
+                "/4725 EVENT/"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Win User Enabled",
+            "description": "Win User Enabled",
+            "labels": [
+                {
+                    "name": "Win User Enabled",
+                    "color": "660066"
+                }
+            ],
+            "patterns": [
+                "/626 EVENT/",
+                "/4722 EVENT/"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 1,
+                "min_report_count": 1,
+                "min_matches_period": "Hour",
+                "min_report_period": "Hour"
+            }]
+        }
+    ]
+}

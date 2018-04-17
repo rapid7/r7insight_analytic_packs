@@ -1,0 +1,89 @@
+{
+	"name": "Python APM",   
+    "searches": [
+        {
+            "name": "ExecutionTime",
+            "description": "Average Execution Time per method",
+            "query": "where(function_name) groupby(function_name) calculate(AVERAGE:execution_time)"
+        },
+        {
+            "name": "AverageCpu",
+            "description": "Average CPU Usage per method",
+            "query": "where(function_name) groupby(function_name) calculate(AVERAGE:cpu)"
+        },
+         {
+            "name": "AverageCpuSingle",
+            "description": "Average CPU Usage for specific method",
+            "query": "where(function_name=function_two) calculate(AVERAGE:cpu)"
+        }
+
+
+      
+    ],
+    "tags": [
+        {
+            "type": "Alert",
+            "name": "High CPU load",
+            "description": "High CPU load",
+            "labels": [
+                {
+                    "name": "High CPU Load",
+                    "color": "FF0000"
+                }
+            ],
+            "patterns": [
+                "where(cpu>90)"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 100,
+                "min_matches_period": "Day",
+                "min_report_count": 1,
+                "min_report_period": "Day"
+            }]
+        },
+        {
+            "type": "Alert",
+            "name": "Reaching memory limits",
+            "description": "Reaching memory limits",
+            "labels": [
+                {
+                    "name": "Memory almost exceeded",
+                    "color": "FF00FF"
+                }
+            ],
+            "patterns": [
+                "where(percent>90)"
+            ],
+            "actions": [{
+                "type": "Alert",
+                "min_matches_count": 100,
+                "min_matches_period": "Day",
+                "min_report_count": 1,
+                "min_report_period": "Day"
+            }]
+        }
+    ],
+    "cards": [
+        {
+            "name": "Execution Time",
+            "description": "Average Execution Time per method",
+            "queries": [{ "leql" : {"statement": "where(function_name) groupby(function_name) calculate(AVERAGE:execution_time)"}}],
+            "visualization": "BAR"
+        },
+        {
+            "name": "Average CPU per method",
+            "description": "Average CPU Usage per method",
+            "queries": [{ "leql" : {"statement": "where(function_name) groupby(function_name) calculate(AVERAGE:cpu)"}}],
+            "visualization": "BAR"
+        },
+        {
+            "name": "Average CPU for single method",
+            "description": "Average CPU Usage for single method",
+            "queries": [{ "leql" : {"statement": "where(function_name=function_two) calculate(AVERAGE:cpu)"}}],
+            "visualization": "LINE"
+        }
+        
+    ]
+
+}
