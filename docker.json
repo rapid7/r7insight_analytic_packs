@@ -367,7 +367,7 @@
       "name": "Total memory",
       "description": "Total average memory",
       "queries": [{ "leql" : {
-              "statement": "where(stats.memory_stats.usage!=null) calculate(average:stats.memory_stats.usage) timeSlice(50)"
+              "statement": "where(stats.memory_stats.usage!=null) calculate(average:stats.memory_stats.usage) timeSlice(10m)"
             }}],
       "visualization": "BAR"
     },
@@ -375,9 +375,9 @@
       "name": "Total CPU",
       "description": "Total average CPU",
       "queries": [{ "leql" : {
-              "statement": "where(stats.cpu_stats.cpu_usage.total_usage!=null) calculate(average:stats.cpu_stats.cpu_usage.total_usage) timeSlice(50)"
+              "statement": "where(stats.cpu_stats.cpu_usage.total_usage!=null) calculate(average:stats.cpu_stats.cpu_usage.total_usage) timeSlice(10m)"
             }}],
-      "visualization": "BAR"
+      "visualization": "LINE"
     },
     {
       "name": "Container events by type",
