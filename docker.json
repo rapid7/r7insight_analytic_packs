@@ -369,7 +369,7 @@
       "queries": [{ "leql" : {
               "statement": "calculate(average:stats.memory_stats.usage) timeSlice(10m)"
             }}],
-      "visualization": "BAR"
+      "visualization": "AREA"
     },
     {
       "name": "Total CPU",
