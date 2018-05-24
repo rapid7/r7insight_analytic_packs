@@ -4,32 +4,32 @@
     {
       "name": "Docker: Most Memory By Image",
       "description": "Docker:  Most intensive memory by image",
-      "query": "where(stats.memory_stats.usage!=null) groupby(image) calculate(average:stats.memory_stats.usage) sort(desc)"
+      "query": "groupby(image) calculate(average:stats.memory_stats.usage) sort(desc)"
     },
     {
       "name": "Docker: Most CPU By Image",
       "description": "Docker:  Most intensive CPU by image",
-      "query": "where(stats.cpu_stats.cpu_usage.total_usage!=null) groupby(image) calculate(average:stats.cpu_stats.cpu_usage.total_usage) sort(desc)"
+      "query": "groupby(image) calculate(average:stats.cpu_stats.cpu_usage.total_usage) sort(desc)"
     },
     {
       "name": "Docker: Most Memory By Container",
       "description": "Docker:  Most intensive memory by container",
-      "query": "where(stats.memory_stats.usage!=null) groupby(name) calculate(average:stats.memory_stats.usage) sort(desc)"
+      "query": "groupby(name) calculate(average:stats.memory_stats.usage) sort(desc)"
     },
     {
       "name": "Docker: Most CPU By Container",
       "description": "Docker:  Most intensive CPU by container",
-      "query": "where(stats.cpu_stats.cpu_usage.total_usage!=null) groupby(name) calculate(average:stats.cpu_stats.cpu_usage.total_usage) sort(desc)"
+      "query": "groupby(name) calculate(average:stats.cpu_stats.cpu_usage.total_usage) sort(desc)"
     },
     {
       "name": "Docker: Total memory",
       "description": "Docker:  Total memory",
-      "query": "where(stats.memory_stats.usage!=null) calculate(average:stats.memory_stats.usage) timeSlice(50)"
+      "query": "calculate(average:stats.memory_stats.usage) timeSlice(10m)"
     },
     {
       "name": "Docker: Total CPU",
       "description": "Docker:  Total cpu",
-      "query": "where(stats.cpu_stats.cpu_usage.total_usage!=null) calculate(average:stats.cpu_stats.cpu_usage.total_usage) timeSlice(50)"
+      "query": "calculate(average:stats.cpu_stats.cpu_usage.total_usage) timeSlice(10m)"
     },
     {
       "name": "Docker: Create events",
@@ -335,7 +335,7 @@
       "name": "Most intensive memory by image",
       "description": "Most intensive memory by image",
       "queries": [{ "leql" : {
-              "statement": "where(stats.memory_stats.usage!=null) groupby(image) calculate(average:stats.memory_stats.usage) sort(desc)"
+              "statement": "groupby(image) calculate(average:stats.memory_stats.usage) sort(desc)"
             }}],
       "visualization": "BAR"
     },
@@ -343,7 +343,7 @@
       "name": "Most intensive CPU by image",
       "description": "Most intensive CPU by image",
       "queries": [{ "leql" : {
-              "statement": "where(stats.cpu_stats.cpu_usage.total_usage!=null) groupby(image) calculate(average:stats.cpu_stats.cpu_usage.total_usage) sort(desc)"
+              "statement": "groupby(image) calculate(average:stats.cpu_stats.cpu_usage.total_usage) sort(desc)"
             }}],
       "visualization": "BAR"
     },
@@ -351,7 +351,7 @@
       "name": "Most intensive memory by container",
       "description": "Most intensive memory by container",
       "queries": [{ "leql" : {
-              "statement": "where(stats.memory_stats.usage!=null) groupby(name) calculate(average:stats.memory_stats.usage) sort(desc)"
+              "statement": "groupby(name) calculate(average:stats.memory_stats.usage) sort(desc)"
             }}],
       "visualization": "BAR"
     },
@@ -359,7 +359,7 @@
       "name": "Most intensive CPU by container",
       "description": "Most intensive CPU by container",
       "queries": [{ "leql" : {
-              "statement": "where(stats.cpu_stats.cpu_usage.total_usage!=null) groupby(name) calculate(average:stats.cpu_stats.cpu_usage.total_usage) sort(desc)"
+              "statement": "groupby(name) calculate(average:stats.cpu_stats.cpu_usage.total_usage) sort(desc)"
             }}],
       "visualization": "BAR"
     },
@@ -367,7 +367,7 @@
       "name": "Total memory",
       "description": "Total average memory",
       "queries": [{ "leql" : {
-              "statement": "where(stats.memory_stats.usage!=null) calculate(average:stats.memory_stats.usage) timeSlice(10m)"
+              "statement": "calculate(average:stats.memory_stats.usage) timeSlice(10m)"
             }}],
       "visualization": "BAR"
     },
@@ -375,7 +375,7 @@
       "name": "Total CPU",
       "description": "Total average CPU",
       "queries": [{ "leql" : {
-              "statement": "where(stats.cpu_stats.cpu_usage.total_usage!=null) calculate(average:stats.cpu_stats.cpu_usage.total_usage) timeSlice(10m)"
+              "statement": "calculate(average:stats.cpu_stats.cpu_usage.total_usage) timeSlice(10m)"
             }}],
       "visualization": "LINE"
     },
