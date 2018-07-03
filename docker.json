@@ -1,5 +1,5 @@
 {
-  "name": "Docker Logging Container",
+  "name": "Metrics from the Rapid7 Docker Logging Container",
   "searches": [
     {
       "name": "Docker: Most Memory By Image",
