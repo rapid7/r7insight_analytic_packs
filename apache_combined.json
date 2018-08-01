@@ -2,35 +2,40 @@
 	"name": "Apache Server Monitoring",
     "searches": [
         {
-            "name": "HTTPcodes",
+            "name": "Combined Access log: HTTP codes",
             "description": "HTTP Codes Distribution",
             "query": "groupby(http.status) calculate(COUNT:http.status)"
         },
          {
-            "name": "URLDistribution",
+            "name": "URL Distribution",
             "description": "Individual URLs accessed",
             "query": "groupby(http.path) calculate(COUNT:http.path)"
         },
         {
-            "name": "TotalBytes",
+            "name": "Total Bytes",
             "description": "Total bytes requested in average",
             "query": "calculate(AVERAGE:http.bytes)"
         },
         {
-        	"name": "url401",
+        	"name": "Url 401",
             "description": "List of all URLs that yield 401 error",
             "query": "where(http.status=401) groupby(http.path) calculate(COUNT:http.status)"
         },
         {
-        	"name": "url200",
+        	"name": "Url 200",
             "description": "List of all URLs that yield 200 OK",
             "query": "where(http.status=200) groupby(http.path) calculate(COUNT:http.status)"
         },
         {
-        	"name": "url404",
+        	"name": "Url 404",
             "description": "List of all URLs that yield 404 error",
             "query": "where(http.status=404) groupby(http.path) calculate(COUNT:http.status)"
-        }
+        },
+        {
+        	"name": "Unique IP",
+            "description": "Count of unique IP addresses",
+            "query": "calculate(unique:http.addr)"
+        }                
     ],
     "tags": [
         {
@@ -57,16 +62,16 @@
         {
         
             "type": "Alert",
-            "name": "OK Pass",
-            "description": "Correct Pass",
+            "name": "500 - Server Error",
+            "description": "Server error",
             "labels": [
                 {
-                    "name": "200-OK",
-                    "color": "33CC33"
+                    "name": "500 - Server Error",
+                    "color": "FF0000"
                 }
             ],
             "patterns": [
-                "http.status=200"
+                "http.status=500"
             ],
             "actions": [{
                 "type": "Alert",
@@ -121,19 +126,27 @@
             "visualization": "LINE"
         },
         {
-            "name": "URLs vs 401 errors",
+            "name": "401 errors by URL",
             "queries": [{"leql": {
               "statement": "where(http.status=401) groupby(http.path) calculate(COUNT:http.status)"
             }}],
             "visualization": "BAR"
         },
         {
-            "name": "URLs vs 404 errors",
+            "name": "404 errors by URL",
             "queries": [{"leql": {
               "statement": "where(http.status=404) groupby(http.path) calculate(COUNT:http.status)"
             }}],
             "visualization": "BAR"
         },
+        {
+            "name": "500 errors by URL",
+            "queries": [{"leql": {
+              "statement": "where(http.status=500) groupby(http.path) calculate(COUNT:http.status)"
+            }}],
+            "visualization": "BAR"
+        },
+        
         {
             "name": "URLs vs 200 http codes",
             "queries": [{"leql": {
