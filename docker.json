@@ -119,7 +119,7 @@
         }
       ],
       "patterns": [
-        "\"type\":\"create\""
+        "type=create"
       ],
       "actions": [ {
         "type": "Alert",
@@ -140,7 +140,7 @@
         }
       ],
       "patterns": [
-        "\"type\":\"start\""
+        "type=start"
       ],
       "actions": [ {
         "type": "Alert",
@@ -161,7 +161,7 @@
         }
       ],
       "patterns": [
-        "\"type\":\"die\""
+        "type=die"
       ],
       "actions": [ {
         "type": "Alert",
@@ -182,7 +182,7 @@
         }
       ],
       "patterns": [
-        "\"type\":\"kill\""
+        "type=kill"
       ],
       "actions": [ {
         "type": "Alert",
