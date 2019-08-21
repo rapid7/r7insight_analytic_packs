@@ -4,52 +4,52 @@
         {
             "name": "Invalid Logins",
             "description": "Logins with incorrect credentials",
-            "query": "where(/4625 EVENT/ OR /\\s529 EVENT/)"
+            "query": "where(/4625 EVENT/ OR /\s529 EVENT/)"
         },
         {
             "name": "Admin Account Created",
             "description": "A user was added to the local Administrators group",
-            "query": "where(/4732 EVENT/ OR /\\s636 EVENT/)"
+            "query": "where(/4732 EVENT/ OR /\s636 EVENT/)"
         },
         {
             "name": "Account Locked Out",
             "description": "Too many invalid logins attempts occurred",
-            "query": "where(/4740 EVENT/ OR /\\s644 EVENT/)"
+            "query": "where(/4740 EVENT/ OR /\s644 EVENT/)"
         },
         {
             "name": "Audit Log Cleared",
             "description": "The Winodws Audit Log was cleared",
-            "query": "where(/1102 EVENT/ OR /\\s517 EVENT/)"
+            "query": "where(/1102 EVENT/ OR /\s517 EVENT/)"
         },
         {
             "name": "Audit Policy Changed",
             "description": "The Windows Audit Policy was modified",
-            "query": "where(/4719 EVENT/ OR /\\s612 EVENT/)"
+            "query": "where(/4719 EVENT/ OR /\s612 EVENT/)"
         },
         {
             "name": "Invalid Logins By Host",
             "description": "Provides a bar chart of the invalid logins, broken down by each host",
-            "query": "where(/:\\d{2} (?P<host>\\w+)./ AND /4625 EVENT/ OR /\\s529 EVENT/) groupby(host)"
+            "query": "where(/:\\d{2} (?P<host>\\w+)./ AND /4625 EVENT/ OR /\s529 EVENT/) groupby(host)"
         },
         {
             "name": "Admin Account Created by Host",
             "description": "Provides a bar chart of the Administrator accounts created, broken down by each host",
-            "query": "where(/:\\d{2} (?P<host>\\w+)./ AND /4732 EVENT/ OR /\\s636 EVENT/) groupby(host)"
+            "query": "where(/:\\d{2} (?P<host>\\w+)./ AND /4732 EVENT/ OR /\s636 EVENT/) groupby(host)"
         },
         {
             "name": "Accounts Locked Out by Host",
             "description": "Provides a bar chart of the number of accounts locked out, broken down by each host",
-            "query": "where(/:\\d{2} (?P<host>\\w+)./ AND /4740 EVENT/ OR /\\s644 EVENT/) groupby(host)"
+            "query": "where(/:\\d{2} (?P<host>\\w+)./ AND /4740 EVENT/ OR /\s644 EVENT/) groupby(host)"
         },
         {
             "name": "Audit Log Cleared by Host",
             "description": "Provides a bar chart of the Windows Audit Log Cleared events, broken down by each host",
-            "query": "where(/:\\d{2} (?P<host>\\w+)./ AND /1102 EVENT/ OR /\\s517 EVENT/) groupby(host)"
+            "query": "where(/:\\d{2} (?P<host>\\w+)./ AND /1102 EVENT/ OR /\s517 EVENT/) groupby(host)"
         },
         {
             "name": "Audit Policy Changed by Host",
             "description": "Provides a bar chart of the Windows Audit Policy Changed events, broken down by each host",
-            "query": "where(/:\\d{2} (?P<host>\\w+)./ AND /4719 EVENT/ OR /\\s612 EVENT/) groupby(host)"
+            "query": "where(/:\\d{2} (?P<host>\\w+)./ AND /4719 EVENT/ OR /\s612 EVENT/) groupby(host)"
         }
     ],
     "tags": [{
@@ -61,7 +61,7 @@
             "color": "660066"
         }],
         "patterns": [
-            "/4625 EVENT/ OR /\\s529/"
+            "/4625 EVENT/ OR /\s529/"
         ],
         "actions": [{
             "type": "Alert",
@@ -79,7 +79,7 @@
             "color": "660066"
         }],
         "patterns": [
-            "/4732 EVENT/ OR /\\s636 EVENT/"
+            "/4732 EVENT/ OR /\s636 EVENT/"
         ],
         "actions": [{
             "type": "Alert",
@@ -133,7 +133,7 @@
             "color": "660066"
         }],
         "patterns": [
-            "/4719 EVENT/ OR /\\s612 EVENT/"
+            "/4719 EVENT/ OR /\s612 EVENT/"
         ],
         "actions": [{
             "type": "Alert",
@@ -148,31 +148,31 @@
         {
             "name": "Invalid Logins",
             "description":"Invalid Logins",
-            "queries": [{ "leql" : {"statement": "where(/4625 EVENT/ OR /\\s529 EVENT/) CALCULATE(COUNT)"}}],
+            "queries": [{ "leql" : {"statement": "where(/4625 EVENT/ OR /\s529 EVENT/) CALCULATE(COUNT)"}}],
             "visualization": "COUNT"
         },                                    
         {
             "name": "Admin Account Created",
             "description": "Admin Account Created",
-            "queries": [{ "leql" : {"statement": "where(/4732 EVENT/ OR /\\s636 EVENT/) CALCULATE(COUNT)"}}],
+            "queries": [{ "leql" : {"statement": "where(/4732 EVENT/ OR /\s636 EVENT/) CALCULATE(COUNT)"}}],
             "visualization": "COUNT"
         },                 
         {
             "name": "Account Locked Out",
             "description": "Account Locked Out",
-            "queries": [{ "leql" : {"statement": "where(/4740 EVENT/ OR /\\s644 EVENT/) CALCULATE(COUNT)"}}],
+            "queries": [{ "leql" : {"statement": "where(/4740 EVENT/ OR /\s644 EVENT/) CALCULATE(COUNT)"}}],
             "visualization": "COUNT"
         },                 
         {
             "name": "Audit Policy Changed",
             "description": "Audit Policy Changed",
-            "queries": [{ "leql" : {"statement": "where(/4719 EVENT/ OR /\\s612 EVENT/) CALCULATE(COUNT)"}}],
+            "queries": [{ "leql" : {"statement": "where(/4719 EVENT/ OR /\s612 EVENT/) CALCULATE(COUNT)"}}],
             "visualization": "COUNT"
         },
         {
             "name": "Audit Log Cleared",
             "description": "Audit Log Cleared",
-            "queries": [{ "leql" : {"statement": "where(/1102 EVENT/ OR /\\s517 EVENT/) CALCULATE(COUNT)"}}],
+            "queries": [{ "leql" : {"statement": "where(/1102 EVENT/ OR /\s517 EVENT/) CALCULATE(COUNT)"}}],
             "visualization": "COUNT"
         }
     ]
