@@ -257,6 +257,49 @@
 				}
 			}],
 			"visualization": "TABLE"
-		}
+		},{
+   "name": "Windows FIM",
+   "searches": [],
+   "tags" : [],
+
+   "cards": [
+     {
+         "name": "FIM Events per Windows Asset",
+         "description":"FIM Events per Windows Asset",
+         "queries": [{ "leql" : {"statement": "where(asset_os_family=windows) groupby(asset)"}}],
+         "visualization": "BAR"
+     },
+       {
+           "name": "FIM Events by Event Type",
+           "description":"FIM Events by Event Type",
+           "queries": [{ "leql" : {"statement": "where(asset_os_family=windows) groupby(file_event)"}}],
+           "visualization": "PIE"
+       },
+       {
+           "name": "FIM Events per User",
+           "description":"FIM Events per User",
+           "queries": [{ "leql" : {"statement": "where(asset_os_family=windows) groupby(user)"}}],
+           "visualization": "TABLE"
+       },
+       {
+           "name": "FIM Events by Process",
+           "description":"FIM Events by Process",
+           "queries": [{ "leql" : {"statement": "where(asset_os_family=windows) groupby(process)"}}],
+           "visualization": "PIE"
+       },
+       {
+           "name": "FIM Events by File Name",
+           "description":"FIM Events by File Name",
+           "queries": [{ "leql" : {"statement": "where(asset_os_family=windows) groupby(file_name) limit(100)"}}],
+           "visualization": "COLUMN"
+       },
+       {
+           "name": "FIM Events per Day",
+           "description":"FIM Events per Day",
+           "queries": [{ "leql" : {"statement": "where(asset_os_family=windows) calculate(COUNT)timeslice(1440m)"}}],
+           "visualization": "LINE"
+       }
+   ]
+}
 	]
 }
