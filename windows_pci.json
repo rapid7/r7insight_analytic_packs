@@ -257,13 +257,8 @@
 				}
 			}],
 			"visualization": "TABLE"
-		},{
-   "name": "Windows FIM",
-   "searches": [],
-   "tags" : [],
-
-   "cards": [
-     {
+		},
+	 {
          "name": "FIM Events per Windows Asset",
          "description":"FIM Events per Windows Asset",
          "queries": [{ "leql" : {"statement": "where(asset_os_family=windows) groupby(asset)"}}],
@@ -298,8 +293,6 @@
            "description":"FIM Events per Day",
            "queries": [{ "leql" : {"statement": "where(asset_os_family=windows) calculate(COUNT)timeslice(1440m)"}}],
            "visualization": "LINE"
-       }
-   ]
-}
+       }		
 	]
 }
