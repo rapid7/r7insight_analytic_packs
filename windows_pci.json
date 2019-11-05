@@ -1,179 +1,262 @@
 {
-    "name": "Windows PCI Compliance",
-    "searches": [
-        {
-            "name": "Invalid Logins",
-            "description": "Logins with incorrect credentials",
-            "query": "where(/4625 EVENT/ OR /\\s529 EVENT/)"
-        },
-        {
-            "name": "Admin Account Created",
-            "description": "A user was added to the local Administrators group",
-            "query": "where(/4732 EVENT/ OR /\\s636 EVENT/)"
-        },
-        {
-            "name": "Account Locked Out",
-            "description": "Too many invalid logins attempts occurred",
-            "query": "where(/4740 EVENT/ OR /\\s644 EVENT/)"
-        },
-        {
-            "name": "Audit Log Cleared",
-            "description": "The Winodws Audit Log was cleared",
-            "query": "where(/1102 EVENT/ OR /\\s517 EVENT/)"
-        },
-        {
-            "name": "Audit Policy Changed",
-            "description": "The Windows Audit Policy was modified",
-            "query": "where(/4719 EVENT/ OR /\\s612 EVENT/)"
-        },
-        {
-            "name": "Invalid Logins By Host",
-            "description": "Provides a bar chart of the invalid logins, broken down by each host",
-            "query": "where(/:\\d{2} (?P<host>\\w+)./ AND /4625 EVENT/ OR /\\s529 EVENT/) groupby(host)"
-        },
-        {
-            "name": "Admin Account Created by Host",
-            "description": "Provides a bar chart of the Administrator accounts created, broken down by each host",
-            "query": "where(/:\\d{2} (?P<host>\\w+)./ AND /4732 EVENT/ OR /\\s636 EVENT/) groupby(host)"
-        },
-        {
-            "name": "Accounts Locked Out by Host",
-            "description": "Provides a bar chart of the number of accounts locked out, broken down by each host",
-            "query": "where(/:\\d{2} (?P<host>\\w+)./ AND /4740 EVENT/ OR /\\s644 EVENT/) groupby(host)"
-        },
-        {
-            "name": "Audit Log Cleared by Host",
-            "description": "Provides a bar chart of the Windows Audit Log Cleared events, broken down by each host",
-            "query": "where(/:\\d{2} (?P<host>\\w+)./ AND /1102 EVENT/ OR /\\s517 EVENT/) groupby(host)"
-        },
-        {
-            "name": "Audit Policy Changed by Host",
-            "description": "Provides a bar chart of the Windows Audit Policy Changed events, broken down by each host",
-            "query": "where(/:\\d{2} (?P<host>\\w+)./ AND /4719 EVENT/ OR /\\s612 EVENT/) groupby(host)"
-        }
-    ],
-    "tags": [{
-        "type": "Alert",
-        "name": "Windows Failed Login",
-        "description": "Windows Failed Login",
-        "labels": [{
-            "name": "Failed Login",
-            "color": "660066"
-        }],
-        "patterns": [
-            "/4625 EVENT/ OR /\\s529/"
-        ],
-        "actions": [{
-            "type": "Alert",
-            "min_matches_count": 1,
-            "min_report_count": 1,
-            "min_matches_period": "Hour",
-            "min_report_period": "Hour"
-        }]
-    }, {
-        "type": "Alert",
-        "name": "Admin Account Created",
-        "description": "Admin Account Created",
-        "labels": [{
-            "name": "Admin Created",
-            "color": "660066"
-        }],
-        "patterns": [
-            "/4732 EVENT/ OR /\\s636 EVENT/"
-        ],
-        "actions": [{
-            "type": "Alert",
-            "min_matches_count": 1,
-            "min_report_count": 1,
-            "min_matches_period": "Hour",
-            "min_report_period": "Hour"
-        }]
-    }, {
-        "type": "Alert",
-        "name": "Account Locked Out",
-        "description": "Account Locked Out",
-        "labels": [{
-            "name": "Account Locked Out",
-            "color": "660066"
-        }],
-        "patterns": [
-            "/4740 EVENT/ OR /\\s644 EVENT/"
-        ],
-        "actions": [{
-            "type": "Alert",
-            "min_matches_count": 1,
-            "min_report_count": 1,
-            "min_matches_period": "Hour",
-            "min_report_period": "Hour"
-        }]
-    }, {
-        "type": "Alert",
-        "name": "Audit Log Cleared",
-        "description": "Audit Log Cleared",
-        "labels": [{
-            "name": "Audit Log Cleared",
-            "color": "660066"
-        }],
-        "patterns": [
-            "/1102 EVENT/ OR /\\s517 EVENT/"
-        ],
-        "actions": [{
-            "type": "Alert",
-            "min_matches_count": 1,
-            "min_report_count": 1,
-            "min_matches_period": "Hour",
-            "min_report_period": "Hour"
-        }]
-    }, {
-        "type": "Alert",
-        "name": "Audit Policy Changed",
-        "description": "Audit Policy Changed",
-        "labels": [{
-            "name": "Admin Created",
-            "color": "660066"
-        }],
-        "patterns": [
-            "/4719 EVENT/ OR /\\s612 EVENT/"
-        ],
-        "actions": [{
-            "type": "Alert",
-            "min_matches_count": 1,
-            "min_report_count": 1,
-            "min_matches_period": "Hour",
-            "min_report_period": "Hour"
-        }]
-    }
-    ],
-    "cards": [
-        {
-            "name": "Invalid Logins",
-            "description":"Invalid Logins",
-            "queries": [{ "leql" : {"statement": "where(/4625 EVENT/ OR /\\s529 EVENT/) CALCULATE(COUNT)"}}],
-            "visualization": "COUNT"
-        },                                    
-        {
-            "name": "Admin Account Created",
-            "description": "Admin Account Created",
-            "queries": [{ "leql" : {"statement": "where(/4732 EVENT/ OR /\\s636 EVENT/) CALCULATE(COUNT)"}}],
-            "visualization": "COUNT"
-        },                 
-        {
-            "name": "Account Locked Out",
-            "description": "Account Locked Out",
-            "queries": [{ "leql" : {"statement": "where(/4740 EVENT/ OR /\\s644 EVENT/) CALCULATE(COUNT)"}}],
-            "visualization": "COUNT"
-        },                 
-        {
-            "name": "Audit Policy Changed",
-            "description": "Audit Policy Changed",
-            "queries": [{ "leql" : {"statement": "where(/4719 EVENT/ OR /\\s612 EVENT/) CALCULATE(COUNT)"}}],
-            "visualization": "COUNT"
-        },
-        {
-            "name": "Audit Log Cleared",
-            "description": "Audit Log Cleared",
-            "queries": [{ "leql" : {"statement": "where(/1102 EVENT/ OR /\\s517 EVENT/) CALCULATE(COUNT)"}}],
-            "visualization": "COUNT"
-        }
-    ]
+	"name": "Windows PCI",
+	"searches": [
+		{
+			"name": "Denied Connection Attempts",
+			"query": "where(connection_status=DENY) groupby(source_address)"
+		},
+		{
+			"name": "User authentications",
+			"query": "groupby(destination_user)"
+		},
+		{
+			"name": "Actions - root privileges",
+			"query": "where(4715 OR 4719 OR 4902 OR 4904 OR 4905 OR 4906 OR 4907 OR 4908 OR 4912 OR 4817 OR 4739 OR 4865 OR 4866 OR 4867 OR 4713 OR 4716 OR 4717 OR 4718 OR 4864 OR 4707 OR 4913 OR 4703 OR 4704 OR 4705 OR 4706 OR 4714 OR 4911 OR 4709 OR 4710 OR 4712 OR 4711 OR 5040 OR 5041 OR 5042 OR 5043 OR 5044 OR 5045 OR 5046 OR 5047 OR 5048 OR 5440 OR 5441 OR 5442 OR 5443 OR 5444 OR 5446 OR 5448 OR 5449 OR 5450 OR 5456 OR 5457 OR 5458 OR 5459 OR 5460 OR 5461 OR 5462 OR 5463 OR 5464 OR 5465 OR 5466 OR 5467 OR 5468 OR 5471 OR 5472 OR 5473 OR 5474 OR 5477 OR 4944 OR 4945 OR 4950 OR 4954 OR 4946 OR 4947 OR 4948 OR 4949 OR 4951 OR 4952 OR 4953 OR 4956 OR 4957 OR 4958 OR 4826 OR 4819 OR 4909 OR 4910 OR 5063 OR 5064 OR 5065 OR 5066 OR 5067 OR 5068 OR 5069 OR 5070 OR 5447 OR 6144 OR 6145 OR 4670 OR 4672 OR 4673 OR 4674)groupby(eventid)"
+		},
+		{
+			"name": "Potential Insecure Conns",
+			"query": "where(destination_port = 80) groupby(source_address)"
+		},
+		{
+			"name": "Failed Logins Over Time",
+			"query": "where(result=FAILED_BAD_PASSWORD OR result=FAILED_BAD_LOGIN OR result = FAILED_OTHER) calculate(count) timeslice(60)"
+		},
+		{
+			"name": "Failed logical access tries",
+			"query": "where(4777 OR 4822 OR 4823 OR 4774 OR 4775 OR 4776 OR 4772 OR 4768 OR 4771 OR 4773 OR 4820 OR 4824 OR 4769 OR 4770 OR 4821 OR 4625 OR  4627 OR 4978 OR 4979 OR 4980 OR 4981 OR 4982 OR 4983 OR 4984 OR 4646 OR 4650 OR 4651 OR 4652 OR 4653 OR 4655 OR 4976 OR 5049 OR 5453 OR 4654 OR 4977 OR 5451 OR 5452 OR 4634 OR 4647 OR 4625 OR 4624 OR 4626 OR 4648 OR 4675 OR 6273 OR 6274 OR 6275 OR 6276 OR 6279 OR 6280 OR 6272 OR 6277 OR 6278 OR 4649 OR 4825 OR 4778 OR 4779 OR 4800 OR 4801 OR 4802 OR 4803 OR 5378 OR 5632 OR 5633 OR 4964)groupby(eventid)"
+		},
+		{
+			"name": "Use of ID and auth mechanisms",
+			"query": "where(4777 OR 4822 OR 4823 OR 4774 OR 4775 OR 4776 OR 4772 OR 4768 OR 4771 OR 4773 OR 4820 OR 4824 OR 4769 OR 4770 OR 4821 OR 4625 OR 4627 OR 4978 OR 4979 OR 4980 OR 4981 OR 4982 OR 4983 OR 4984 OR 4646 OR 4650 OR 4651 OR 4652 OR 4653 OR 4655 OR 4976 OR 5049 OR 5453 OR 4654 OR 4977 OR 5451 OR 5452 OR 4634 OR 4647 OR 4625 OR 4624 OR 4626 OR 4648 OR 4675 OR 6273 OR 6274 OR 6275 OR 6276 OR 6279 OR 6280 OR 6272 OR 6277 OR 6278 OR 4649 OR 4825 OR 4778 OR 4779 OR 4800 OR 4801 OR 4802 OR 4803 OR 5378 OR 5632 OR 5633 OR 4964)groupby(eventid)"
+		},
+		{
+			"name": "10.2.5b Elevation of privileges",
+			"query": "where(4777 OR 4822 OR 4823 OR 4774 OR 4775 OR 4776 OR 4772 OR 4768 OR 4771 OR 4773 OR 4820 OR 4824 OR 4769 OR 4770 OR 4821 OR 4625 OR  4627 OR 4978 OR 4979 OR 4980 OR 4981 OR 4982 OR 4983 OR 4984 OR 4646 OR 4650 OR 4651 OR 4652 OR 4653 OR 4655 OR 4976 OR 5049 OR 5453 OR 4654 OR 4977 OR 5451 OR 5452 OR 4634 OR 4647 OR 4625 OR 4624 OR 4626 OR 4648 OR 4675 OR 6273 OR 6274 OR 6275 OR 6276 OR 6279 OR 6280 OR 6272 OR 6277 OR 6278 OR 4649 OR 4825 OR 4778 OR 4779 OR 4800 OR 4801 OR 4802 OR 4803 OR 5378 OR 5632 OR 5633 OR 4964)groupby(eventid)"
+		},
+		{
+			"name": "Changes root or admin accounts",
+			"query": "where(4783 OR 4784 OR 4785 OR 4786 OR 4787 OR 4788 OR 4789 OR 4790 OR 4791 OR 4792 OR 4742 OR 4743 OR 4746 OR 4751 OR 4744 OR 4745 OR 4747 OR 4748 OR 4749 OR 4750 OR 4752 OR 4753 OR 4759 OR 4760 OR 4761 OR 4762 OR 4782 OR 4793 OR 4729 OR 4733 OR 4757 OR 4727 OR 4728 OR 4730 OR 4731 OR 4732 OR 4734 OR 4735 OR 4737 OR 4754 OR 4755 OR 4756 OR 4758 OR 4764 OR 4799 OR 4720 OR 4722 OR 4723 OR 4724 OR 4725 OR 4726 OR 4767 OR 4781 OR 4797 OR 4738 OR 4740 OR 4765 OR 4766 OR 4780 OR 4794 OR 4798 OR 5376 OR 5377)groupby(eventid)"
+		},
+		{
+			"name": "Audit log changes",
+			"query": "where(param2=stopped AND eventid=7036)groupby(param1)"
+		},
+		{
+			"name": "Access to all audit trails",
+			"query": "where(4715 OR 4719 OR 4902 OR 4904 OR 4905 OR 4906 OR 4907 OR 4908 OR 4912 OR 4817 OR 4739 OR 4865 OR 4866 OR 4867 OR 4713 OR 4716 OR 4717 OR 4718 OR 4864 OR 4707 OR 4913 OR 4703 OR 4704 OR 4705 OR 4706 OR 4714 OR 4911 OR 4709 OR 4710 OR 4712 OR 4711 OR 5040 OR 5041 OR 5042 OR 5043 OR 5044 OR 5045 OR 5046 OR 5047 OR 5048 OR 5440 OR 5441 OR 5442 OR 5443 OR 5444 OR 5446 OR 5448 OR 5449 OR 5450 OR 5456 OR 5457 OR 5458 OR 5459 OR 5460 OR 5461 OR 5462 OR 5463 OR 5464 OR 5465 OR 5466 OR 5467 OR 5468 OR 5471 OR 5472 OR 5473 OR 5474 OR 5477 OR 4944 OR 4945 OR 4950 OR 4954 OR 4946 OR 4947 OR 4948 OR 4949 OR 4951 OR 4952 OR 4953 OR 4956 OR 4957 OR 4958 OR 4826 OR 4819 OR 4909 OR 4910 OR 5063 OR 5064 OR 5065 OR 5066 OR 5067 OR 5068 OR 5069 OR 5070 OR 5447 OR 6144 OR 6145 OR 4670)groupby(eventid)"
+		}
+	],	
+	"tags": [{
+		"type": "Alert",
+		"name": "Windows Failed Login",
+		"description": "Windows Failed Login",
+		"labels": [{
+			"name": "Failed Login",
+			"color": "660066"
+		}],
+		"patterns": [
+			"\/4625\/ OR \/s529\/ AND eventCode"
+		],
+		"actions": [{
+			"type": "Alert",
+			"min_matches_count": 1,
+			"min_report_count": 1,
+			"min_matches_period": "Hour",
+			"min_report_period": "Hour"
+		}]
+	}, {
+		"type": "Alert",
+		"name": "Admin Account Created",
+		"description": "Admin Account Created",
+		"labels": [{
+			"name": "Admin Created",
+			"color": "660066"
+		}],
+		"patterns": [
+			"\/4732\/ OR \/s636\/ AND eventCode"
+		],
+		"actions": [{
+			"type": "Alert",
+			"min_matches_count": 1,
+			"min_report_count": 1,
+			"min_matches_period": "Hour",
+			"min_report_period": "Hour"
+		}]
+	}, {
+		"type": "Alert",
+		"name": "Account Locked Out",
+		"description": "Account Locked Out",
+		"labels": [{
+			"name": "Account Locked Out",
+			"color": "660066"
+		}],
+		"patterns": [
+			"\/4740\/ OR \/s644\/ AND eventCode"
+		],
+		"actions": [{
+			"type": "Alert",
+			"min_matches_count": 1,
+			"min_report_count": 1,
+			"min_matches_period": "Hour",
+			"min_report_period": "Hour"
+		}]
+	}, {
+		"type": "Alert",
+		"name": "Audit Log Cleared",
+		"description": "Audit Log Cleared",
+		"labels": [{
+			"name": "Audit Log Cleared",
+			"color": "660066"
+		}],
+		"patterns": [
+			"\/1102\/ OR \/s517\/ AND eventCode"
+		],
+		"actions": [{
+			"type": "Alert",
+			"min_matches_count": 1,
+			"min_report_count": 1,
+			"min_matches_period": "Hour",
+			"min_report_period": "Hour"
+		}]
+	}, {
+		"type": "Alert",
+		"name": "Audit Policy Changed",
+		"description": "Audit Policy Changed",
+		"labels": [{
+			"name": "Admin Created",
+			"color": "660066"
+		}],
+		"patterns": [
+			"\/4719\/ OR \/s612\/ AND eventCode"
+		],
+		"actions": [{
+			"type": "Alert",
+			"min_matches_count": 1,
+			"min_report_count": 1,
+			"min_matches_period": "Hour",
+			"min_report_period": "Hour"
+		}]
+	}],
+
+	"cards": [{
+			"name": "1.3.5 Denied Connection Attempts",
+			"description": "1.3.5 Denied Connection Attempts",
+			"queries": [{
+				"leql": {
+					"statement": "where(connection_status=DENY) groupby(source_address)"
+				}
+			}],
+			"visualization": "PIE"
+		},
+		{
+			"name": "7.1.2b User authentications",
+			"description": "7.1.2b User authentications",
+			"queries": [{
+				"leql": {
+					"statement": "groupby(destination_user)"
+				}
+			}],
+			"visualization": "BAR"
+		},
+		{
+			"name": "10.2.2 Actions taken root or administrative privileges",
+			"description": "10.2.2 All actions taken by any individual with root or administrative privileges",
+			"queries": [{
+				"leql": {
+					"statement": "where(eventid=4715 OR eventid=4719 OR eventid=4902 OR eventid=4904 OR eventid=4905 OR eventid=4906 OR eventid=4907 OR eventid=4908 OR eventid=4912 OR eventid=4817 OR eventid=4739 OR eventid=4865 OR eventid=4866 OR eventid=4867 OR eventid=4713 OR eventid=4716 OR eventid=4717 OR eventid=4718 OR eventid=4864 OR eventid=4707 OR eventid=4913 OR eventid=4703 OR eventid=4704 OR eventid=4705 OR eventid=4706 OR eventid=4714 OR eventid=4911 OR eventid=4709 OR eventid=4710 OR eventid=4712 OR eventid=4711 OR eventid=5040 OR eventid=5041 OR eventid=5042 OR eventid=5043 OR eventid=5044 OR eventid=5045 OR eventid=5046 OR eventid=5047 OR eventid=5048 OR eventid=5440 OR eventid=5441 OR eventid=5442 OR eventid=5443 OR eventid=5444 OR eventid=5446 OR eventid=5448 OR eventid=5449 OR eventid=5450 OR eventid=5456 OR eventid=5457 OR eventid=5458 OR eventid=5459 OR eventid=5460 OR eventid=5461 OR eventid=5462 OR eventid=5463 OR eventid=5464 OR eventid=5465 OR eventid=5466 OR eventid=5467 OR eventid=5468 OR eventid=5471 OR eventid=5472 OR eventid=5473 OR eventid=5474 OR eventid=5477 OR eventid=4944 OR eventid=4945 OR eventid=4950 OR eventid=4954 OR eventid=4946 OR eventid=4947 OR eventid=4948 OR eventid=4949 OR eventid=4951 OR eventid=4952 OR eventid=4953 OR eventid=4956 OR eventid=4957 OR eventid=4958 OR eventid=4826 OR eventid=4819 OR eventid=4909 OR eventid=4910 OR eventid=5063 OR eventid=5064 OR eventid=5065 OR eventid=5066 OR eventid=5067 OR eventid=5068 OR eventid=5069 OR eventid=5070 OR eventid=5447 OR eventid=6144 OR eventid=6145 OR eventid=4670 OR eventid=4672 OR eventid=4673 OR eventid=4674)groupby(eventid)"
+				}
+			}],
+			"visualization": "TABLE"
+		},
+		{
+			"name": "4.1c Potential Insecure Connections",
+			"description": "4.1c Potential Insecure Connections",
+			"queries": [{
+				"leql": {
+					"statement": "where(destination_port = 80) groupby(source_address)"
+				}
+			}],
+			"visualization": "TABLE"
+		},
+		{
+			"name": "10.2.4 Failed Logins Over Time",
+			"description": "10.2.4 Failed Logins Over Time",
+			"queries": [{
+				"leql": {
+					"statement": "where(result=FAILED_BAD_PASSWORD OR result=FAILED_BAD_LOGIN OR result = FAILED_OTHER) calculate(count) timeslice(60)"
+				}
+			}],
+			"visualization": "AREA"
+		},
+		{
+			"name": "10.2.4 Invalid logical access attempts",
+			"description": "10.2.4 Invalid logical access attempts",
+			"queries": [{
+				"leql": {
+					"statement": "where(eventid=4777 OR eventid=4822 OR eventid=4823 OR eventid=4774 OR eventid=4775 OR eventid=4776 OR eventid=4772 OR eventid=4768 OR eventid=4771 OR eventid=4773 OR eventid=4820 OR eventid=4824 OR eventid=4769 OR eventid=4770 OR eventid=4821 OR eventid=4625 OR  eventid=4627 OR eventid=4978 OR eventid=4979 OR eventid=4980 OR eventid=4981 OR eventid=4982 OR eventid=4983 OR eventid=4984 OR eventid=4646 OR eventid=4650 OR eventid=4651 OR eventid=4652 OR eventid=4653 OR eventid=4655 OR eventid=4976 OR eventid=5049 OR eventid=5453 OR eventid=4654 OR eventid=4977 OR eventid=5451 OR eventid=5452 OR eventid=4634 OR eventid=4647 OR eventid=4625 OR eventid=4624 OR eventid=4626 OR eventid=4648 OR eventid=4675 OR eventid=6273 OR eventid=6274 OR eventid=6275 OR eventid=6276 OR eventid=6279 OR eventid=6280 OR eventid=6272 OR eventid=6277 OR eventid=6278 OR eventid=4649 OR eventid=4825 OR eventid=4778 OR eventid=4779 OR eventid=4800 OR eventid=4801 OR eventid=4802 OR eventid=4803 OR eventid=5378 OR eventid=5632 OR eventid=5633 OR eventid=4964)groupby(eventid)"
+				}
+			}],
+			"visualization": "TABLE"
+		},
+		{
+			"name": "10.2.5a Use of identification and authentication mechanisms",
+			"description": "10.2.5a Use of identification and authentication mechanisms",
+			"queries": [{
+				"leql": {
+					"statement": "where(eventid=4777 OR eventid=4822 OR eventid=4823 OR eventid=4774 OR eventid=4775 OR eventid=4776 OR eventid=4772 OR eventid=4768 OR eventid=4771 OR eventid=4773 OR eventid=4820 OR eventid=4824 OR eventid=4769 OR eventid=4770 OR eventid=4821 OR eventid=4625 OR eventid=4627 OR eventid=4978 OR eventid=4979 OR eventid=4980 OR eventid=4981 OR eventid=4982 OR eventid=4983 OR eventid=4984 OR eventid=4646 OR eventid=4650 OR eventid=4651 OR eventid=4652 OR eventid=4653 OR eventid=4655 OR eventid=4976 OR eventid=5049 OR eventid=5453 OR eventid=4654 OR eventid=4977 OR eventid=5451 OR eventid=5452 OR eventid=4634 OR eventid=4647 OR eventid=4625 OR eventid=4624 OR eventid=4626 OR eventid=4648 OR eventid=4675 OR eventid=6273 OR eventid=6274 OR eventid=6275 OR eventid=6276 OR eventid=6279 OR eventid=6280 OR eventid=6272 OR eventid=6277 OR eventid=6278 OR eventid=4649 OR eventid=4825 OR eventid=4778 OR eventid=4779 OR eventid=4800 OR eventid=4801 OR eventid=4802 OR eventid=4803 OR eventid=5378 OR eventid=5632 OR eventid=5633 OR eventid=4964)groupby(eventid)"
+				}
+			}],
+			"visualization": "TABLE"
+		},
+		{
+			"name": "10.2.5b Elevation of privileges",
+			"description": "10.2.5b Elevation of privileges",
+			"queries": [{
+				"leql": {
+					"statement": "where(eventid=4777 OR eventid=4822 OR eventid=4823 OR eventid=4774 OR eventid=4775 OR eventid=4776 OR eventid=4772 OR eventid=4768 OR eventid=4771 OR eventid=4773 OR eventid=4820 OR eventid=4824 OR eventid=4769 OR eventid=4770 OR eventid=4821 OR eventid=4625 OR  eventid=4627 OR eventid=4978 OR eventid=4979 OR eventid=4980 OR eventid=4981 OR eventid=4982 OR eventid=4983 OR eventid=4984 OR eventid=4646 OR eventid=4650 OR eventid=4651 OR eventid=4652 OR eventid=4653 OR eventid=4655 OR eventid=4976 OR eventid=5049 OR eventid=5453 OR eventid=4654 OR eventid=4977 OR eventid=5451 OR eventid=5452 OR eventid=4634 OR eventid=4647 OR eventid=4625 OR eventid=4624 OR eventid=4626 OR eventid=4648 OR eventid=4675 OR eventid=6273 OR eventid=6274 OR eventid=6275 OR eventid=6276 OR eventid=6279 OR eventid=6280 OR eventid=6272 OR eventid=6277 OR eventid=6278 OR eventid=4649 OR eventid=4825 OR eventid=4778 OR eventid=4779 OR eventid=4800 OR eventid=4801 OR eventid=4802 OR eventid=4803 OR eventid=5378 OR eventid=5632 OR eventid=5633 OR eventid=4964)groupby(eventid)"
+				}
+			}],
+			"visualization": "PIE"
+		},
+		{
+			"name": "10.2.5c Changes to any account with root or administrative privileges",
+			"description": "10.2.5c Verify all changes, additions, or deletions to any account with root or administrative privileges are logged",
+			"queries": [{
+				"leql": {
+					"statement": "where(eventid=4783 OR eventid=4784 OR eventid=4785 OR eventid=4786 OR eventid=4787 OR eventid=4788 OR eventid=4789 OR eventid=4790 OR eventid=4791 OR eventid=4792 OR eventid=4742 OR eventid=4743 OR eventid=4746 OR eventid=4751 OR eventid=4744 OR eventid=4745 OR eventid=4747 OR eventid=4748 OR eventid=4749 OR eventid=4750 OR eventid=4752 OR eventid=4753 OR eventid=4759 OR eventid=4760 OR eventid=4761 OR eventid=4762 OR eventid=4782 OR eventid=4793 OR eventid=4729 OR eventid=4733 OR eventid=4757 OR eventid=4727 OR eventid=4728 OR eventid=4730 OR eventid=4731 OR eventid=4732 OR eventid=4734 OR eventid=4735 OR eventid=4737 OR eventid=4754 OR eventid=4755 OR eventid=4756 OR eventid=4758 OR eventid=4764 OR eventid=4799 OR eventid=4720 OR eventid=4722 OR eventid=4723 OR eventid=4724 OR eventid=4725 OR eventid=4726 OR eventid=4767 OR eventid=4781 OR eventid=4797 OR eventid=4738 OR eventid=4740 OR eventid=4765 OR eventid=4766 OR eventid=4780 OR eventid=4794 OR eventid=4798 OR eventid=5376 OR eventid=5377)groupby(eventid)"
+				}
+			}],
+			"visualization": "TABLE"
+		},
+		{
+			"name": "10.2.6 Initialization, stopping, or pausing of the audit logs",
+			"description": "10.2.6 Initialization, stopping, or pausing of the audit logs",
+			"queries": [{
+				"leql": {
+					"statement": "where(param2=\"stopped\" AND eventid=7036)groupby(param1)"
+				}
+			}],
+			"visualization": "COLUMN"
+		},
+		{
+			"name": "10.2.7 Creation and deletion of system- level objects",
+			"description": "10.2.7 Creation and deletion of system- level object",
+			"queries": [{
+				"leql": {
+					"statement": "where(eventid=4692 OR eventid=4693 OR eventid=4694 OR eventid=4695 OR eventid=4688 OR eventid=4696 OR eventid=4689 OR eventid=5712 OR eventid=4928 OR eventid=4929 OR eventid=4930 OR eventid=4931 OR eventid=4934 OR eventid=4935 OR eventid=4936 OR eventid=4937 OR eventid=4662 OR eventid=5169 OR eventid=5137 OR eventid=5138 OR eventid=5141 OR eventid=5136 OR eventid=5139 OR eventid=4932 OR eventid=4933 OR eventid=4668 OR eventid=4665 OR eventid=4666 OR eventid=4667 OR eventid=4818 OR eventid=4875 OR eventid=4876 OR eventid=4868 OR eventid=4869 OR eventid=4870 OR eventid=4871 OR eventid=4872 OR eventid=4873 OR eventid=4874 OR eventid=4877 OR eventid=4878 OR eventid=4879 OR eventid=4880 OR eventid=4881 OR eventid=4882 OR eventid=4883 OR eventid=4884 OR eventid=4885 OR eventid=4886 OR eventid=4887 OR eventid=4888 OR eventid=4889 OR eventid=4890 OR eventid=4891 OR eventid=4892 OR eventid=4893 OR eventid=4894 OR eventid=4895 OR eventid=4896 OR eventid=4897 OR eventid=4898 OR eventid=4899 OR eventid=4900 OR eventid=5120 OR eventid=5121 OR eventid=5122 OR eventid=5123 OR eventid=5124 OR eventid=5125 OR eventid=5126 OR eventid=5127 OR eventid=5145 OR eventid=5142 OR eventid=5144 OR eventid=5140 OR eventid=5143 OR eventid=5168 OR eventid=4664 OR eventid=4985 OR eventid=5051 OR eventid=5031 OR eventid=5150 OR eventid=5151 OR eventid=5154 OR eventid=5155 OR eventid=5156 OR eventid=5157 OR eventid=5158 OR eventid=5159 OR eventid=5146 OR eventid=5147 OR eventid=5152 OR eventid=5153 OR eventid=4656 OR eventid=4658 OR eventid=4690 OR eventid=4660 OR eventid=4659 OR eventid=4661 OR eventid=4663 OR eventid=4698 OR eventid=4699 OR eventid=5889 OR eventid=5890 OR eventid=4671 OR eventid=4691 OR eventid=4700 OR eventid=4701 OR eventid=4702 OR eventid=5148 OR eventid=5149 OR eventid=5888 OR eventid=4657 OR eventid=5039 OR eventid=4660 OR eventid=4659 OR eventid=4661 OR eventid=4663 OR eventid=5478 OR eventid=4960 OR eventid=4961 OR eventid=4962 OR eventid=4963 OR eventid=4965 OR eventid=5479 OR eventid=5480 OR eventid=5483 OR eventid=5484 OR eventid=5485 OR eventid=5024 OR eventid=5025 OR eventid=5030 OR eventid=5027 OR eventid=5028 OR eventid=5029 OR eventid=5032 OR eventid=5033 OR eventid=5034 OR eventid=5035 OR eventid=5037 OR eventid=5050 OR eventid=5058 OR eventid=5059 OR eventid=5071 OR eventid=6400 OR eventid=6401 OR eventid=6402 OR eventid=6403 OR eventid=6404 OR eventid=6405 OR eventid=6406 OR eventid=6407 OR eventid=6408 OR eventid=6409 OR eventid=6420 OR eventid=6421 OR eventid=6422 OR eventid=6423 OR eventid=6424 OR eventid=6416 OR eventid=6419 OR eventid=4608 OR eventid=4609 OR eventid=4616 OR eventid=4621 OR eventid=4697 OR eventid=4610 OR eventid=4611 OR eventid=4614 OR eventid=4622 OR eventid=4618 OR eventid=5038 OR eventid=5057 OR eventid=4612 OR eventid=4615 OR eventid=4816 OR eventid=5056 OR eventid=5060 OR eventid=5061 OR eventid=5062 OR eventid=6281 OR eventid=6410 OR eventid=6417 OR eventid=6418)groupby(eventid)"
+				}
+			}],
+			"visualization": "TABLE"
+		},
+		{
+			"name": "10.2.3 Access to all audit trails",
+			"description": "10.2.3 Access to all audit trails",
+			"queries": [{
+				"leql": {
+					"statement": "where(eventid=4715 OR eventid=4719 OR eventid=4902 OR eventid=4904 OR eventid=4905 OR eventid=4906 OR eventid=4907 OR eventid=4908 OR eventid=4912 OR eventid=4817 OR eventid=4739 OR eventid=4865 OR eventid=4866 OR eventid=4867 OR eventid=4713 OR eventid=4716 OR eventid=4717 OR eventid=4718 OR eventid=4864 OR eventid=4707 OR eventid=4913 OR eventid=4703 OR eventid=4704 OR eventid=4705 OR eventid=4706 OR eventid=4714 OR eventid=4911 OR eventid=4709 OR eventid=4710 OR eventid=4712 OR eventid=4711 OR eventid=5040 OR eventid=5041 OR eventid=5042 OR eventid=5043 OR eventid=5044 OR eventid=5045 OR eventid=5046 OR eventid=5047 OR eventid=5048 OR eventid=5440 OR eventid=5441 OR eventid=5442 OR eventid=5443 OR eventid=5444 OR eventid=5446 OR eventid=5448 OR eventid=5449 OR eventid=5450 OR eventid=5456 OR eventid=5457 OR eventid=5458 OR eventid=5459 OR eventid=5460 OR eventid=5461 OR eventid=5462 OR eventid=5463 OR eventid=5464 OR eventid=5465 OR eventid=5466 OR eventid=5467 OR eventid=5468 OR eventid=5471 OR eventid=5472 OR eventid=5473 OR eventid=5474 OR eventid=5477 OR eventid=4944 OR eventid=4945 OR eventid=4950 OR eventid=4954 OR eventid=4946 OR eventid=4947 OR eventid=4948 OR eventid=4949 OR eventid=4951 OR eventid=4952 OR eventid=4953 OR eventid=4956 OR eventid=4957 OR eventid=4958 OR eventid=4826 OR eventid=4819 OR eventid=4909 OR eventid=4910 OR eventid=5063 OR eventid=5064 OR eventid=5065 OR eventid=5066 OR eventid=5067 OR eventid=5068 OR eventid=5069 OR eventid=5070 OR eventid=5447 OR eventid=6144 OR eventid=6145 OR eventid=4670)groupby(eventid)"
+				}
+			}],
+			"visualization": "TABLE"
+		}
+	]
 }
