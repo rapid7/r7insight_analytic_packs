@@ -6,6 +6,56 @@
       "query": "where(type=ANOM_ROOT_TRANS)calculate(count)"
     },
     {
+      "name": "10.2.5b Elevation of privileges",
+      "query": "where(key=elevation) groupby(hostname) calculate(count) limit(10000)"
+    },
+    {
+      "name": "10.2.5c Changes to any account with root or administrative privileges",
+      "query": "where(key=root_action)groupby(hostname) calculate(count) limit(10000)"
+    },
+    {
+      "name": "10.2.6 Stopping/Pausing of Audit Logging",
+      "query": "where(key=audit_access) groupby(hostname) calculate(count) limit(10000)"
+    },
+     {
+      "name": "10.2.7 Creation and deletion of system objects",
+      "query": "where(key=system_object)groupby(hostname) calculate(count) limit(10000)"
+    },
+    {
+      "name": "10.2.3 Access to audit trails",
+      "query": "where(key=audit_access) groupby(hostname) calculate(count) limit(10000)"
+    },
+    {
+      "name": "10.2.5a Use of and changes to identification and authentication mechanisms",
+      "query": "where(/session opened for user (?P<username>.*) by/) groupby(username) calculate(COUNT)"
+    },{
+      "name": "10.2.5a Use of and changes to identification and authentication mechanisms",
+      "query": "where(/Accepted password for (?P<username>.*) from/) groupby(username) calculate(COUNT)"
+    },{
+      "name": "10.2.5a Use of and changes to identification and authentication mechanisms",
+      "query": "where(/password changed for (?P<username>.*)/) groupby(username) calculate(COUNT)"
+    },{
+      "name": "10.2.5a Use of and changes to identification and authentication mechanisms",
+      "query": "where(/Accepted publickey for (?P<username>.*) from/) groupby(username) calculate(COUNT)"
+    },
+     {
+      "name": "10.2.4 Invalid logical access attempts",
+      "query": " where(/Failed password for (?P<username>.*) from/) groupby(username) calculate(COUNT)"
+    }, {
+      "name": "10.2.4 Invalid logical access attempts",
+      "query": "where(/authentication failure/) groupby(user)"
+    }, {
+      "name": "10.2.4 Invalid logical access attempts",
+      "query": "where(invalid credentials) groupby(n)"
+    }, {
+      "name": "10.2.4 Invalid logical access attempts",
+      "query": "where(/Invalid user (?P<username>.*) from/) groupby(username) calculate(COUNT)"
+    },
+    {
+      "name": "10.2.2 Actions taken by root",
+      "query": "where(key=root_action)groupby(hostname) calculate(count) limit(10000)"
+    },
+    {
       "name": "Invalid Logical Access attempts",
       "query": "where((type=ANOM_LOGIN_ACCT OR type=ANOM_LOGIN_FAILURES OR type=ANOM_LOGIN_LOCATION OR type=ANOM_LOGIN_SESSIONS OR type=ANOM_LOGIN_TIME) OR (USER_LOGIN AND failed) OR(LOGIN AND failed) OR (USER_AUTH AND failed), loose)groupby(type)calculate(count)"
     },
