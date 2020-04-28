@@ -31,7 +31,7 @@
 		},
 		{
 			"name": "10.2.6 Initialization, stopping, or pausing of the audit logs",
-			"query": "where(data.eventCode=7036 AND "Windows Event Log") groupby(data.computerName) limit(10000)"
+			"query": "where(data.eventCode=7036 AND Windows Event Log) groupby(data.computerName) limit(10000)"
 		},
 		{
 			"name": "10.2.5a Use of identification and authentication mechanisms",
@@ -115,7 +115,7 @@
 		},
 		{
 			"name": "10.2.3. Access to all audit trails",
-			"query": "where((data.eventCode=4688 AND "eventvwr.msc") OR (data.eventCode=4656 AND "eventvwr.msc") OR (data.eventCode=4688 AND "wevtutil.exe") OR (data.eventCode=4656 AND "wevtutil.exe") (data.eventCode=4663 AND "eventvwr.msc") OR (data.eventCode=4663 AND "wevtutil.exe")  ) groupby(data.computerName) calculate(count) limit(1000)"
+			"query": "where((data.eventCode=4688 AND eventvwr.msc) OR (data.eventCode=4656 AND eventvwr.msc) OR (data.eventCode=4688 AND wevtutil.exe) OR (data.eventCode=4656 AND wevtutil.exe) (data.eventCode=4663 AND eventvwr.msc) OR (data.eventCode=4663 AND wevtutil.exe)  ) groupby(data.computerName) calculate(count) limit(1000)"
 		}
 	],	
 	"tags": [{
