@@ -59,12 +59,12 @@
         {
             "name": "Logins",
             "description": "Number of SSHD Sessions Opened",
-            "query": "where(session opened for user) calculate(COUNT)"
+            "query": "where(sshd session opened for user) calculate(COUNT)"
         },
         {
             "name": "Failed Logins",
             "description": "Number of invalid user sshd attempts",
-            "query": "where(invalid user) calculate(COUNT)"
+            "query": "where(sshd Invalid user) calculate(COUNT)"
         }
     ],
     "tags": [
@@ -153,12 +153,12 @@
         },
         {
             "name": "SSH Access",
-            "queries": [{ "leql" : {"statement": "where(session opened for user) calculate(COUNT)"}}],
+            "queries": [{ "leql" : {"statement": "where(sshd session opened for user) calculate(COUNT)"}}],
             "visualization": "COUNT"
         },
         {
             "name": "Failed Logins",
-            "queries": [{ "leql" : {"statement": "where(invalid user) calculate(COUNT)"}}],
+            "queries": [{ "leql" : {"statement": "where(sshd Invalid user) calculate(COUNT)"}}],
             "visualization": "COUNT"
         }
     ]
