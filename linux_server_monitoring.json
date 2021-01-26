@@ -59,7 +59,7 @@
         {
             "name": "Logins",
             "description": "Number of SSHD Sessions Opened",
-            "query": "where(session opened for user) calculate(COUNT)"
+            "query": "where(sshd session opened for user) calculate(COUNT)"
         },
         {
             "name": "Failed Logins",
