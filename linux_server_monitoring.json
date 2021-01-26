@@ -64,7 +64,7 @@
         {
             "name": "Failed Logins",
             "description": "Number of invalid user sshd attempts",
-            "query": "where(invalid user) calculate(COUNT)"
+            "query": "where(sshd Invalid user) calculate(COUNT)"
         }
     ],
     "tags": [
